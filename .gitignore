@@ -1,2 +1,4 @@
 app/*.js
 app/*.js.map
+app/components/*/*.js
+app/components/*/*.js.map

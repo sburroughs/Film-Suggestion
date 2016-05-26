@@ -1,0 +1,13 @@
+<h1>Film Suggestion Application - POC</h1>
+
+<div>
+    <label>Search:</label>
+    <input type="text" required
+           [(ngModel)]="query">
+    <button (click)=search(query)>Search</button>
+</div>
+
+<films-display [films]="films"></films-display>
+
+
+

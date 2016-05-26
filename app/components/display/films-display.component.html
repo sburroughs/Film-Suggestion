@@ -1,0 +1,10 @@
+<h2>FILM DISPLAY</h2>
+<div *ngIf="films">
+    <ul>
+        <li *ngFor="#film of films">
+            <film-view [film]="film"></film-view>
+        </li>
+    </ul>
+</div>
+
+
