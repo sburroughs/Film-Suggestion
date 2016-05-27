@@ -1,6 +1,6 @@
 <h2>FILM DISPLAY</h2>
 <div *ngIf="films">
-    <ul>
+    <ul class="list-unstyled">
         <li *ngFor="#film of films">
             <film-view [film]="film"></film-view>
         </li>

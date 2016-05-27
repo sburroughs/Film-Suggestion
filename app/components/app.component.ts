@@ -10,16 +10,30 @@ import {FilmsDisplayComponent} from './display/films-display.component'
 export class AppComponent {
 
     films;
+    selectedTags = [];
 
     public search(query) {
 
         var mock = [];
 
         var count = query.length;
-        for(var i = 0; i < count; i++){
-            mock.push({'title': 'Free Willy'});
+        for (var i = 0; i < count; i++) {
+            mock.push({
+                'title': 'Free Willy',
+                'description': 'This movie is dope as fuck yo.',
+                'tags': [
+                    {'display': 'HOT'},
+                    {'display': 'WHALE'},
+                    {'display': 'ACTION'}
+                ],
+                'imageUrl': '../../images/sample.jpg'
+            });
         }
         this.films = mock;
+    }
+
+    public addTag(tag) {
+        this.selectedTags.push(tag);
     }
 
 }
