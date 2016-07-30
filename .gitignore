@@ -1,4 +1,4 @@
-app/*.js
-app/*.js.map
-app/components/*/*.js
-app/components/*/*.js.map
+webapp/*.js
+webapp/*.js.map
+webapp/components/*/*.js
+webapp/components/*/*.js.map
