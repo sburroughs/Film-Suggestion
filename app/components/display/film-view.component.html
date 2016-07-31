@@ -1,9 +1,9 @@
 <div *ngIf="film" class="panel panel-default">
-    <h4 class="panel-heading">{{film.title}}</h4>
+    <h4 class="panel-heading">{{film.title}} - ({{film.released}})</h4>
     <div class="panel-body">
-        <p>{{film.description}}</p>
-        <tag-view [tags]="film.tags"></tag-view>
-        <img src="app/img/free-willy-poster.jpg" class="img-thumbnail" width="256" height="64">
+        <img src="app/img/sample.png" class="img-thumbnail col-sm-2" width="128" height="128">
+        <p class="col-sm-4">{{film.plot}}</p>
+        <tag-view class="col-sm-4" [tags]="film.tags"></tag-view>
     </div>
 </div>
 

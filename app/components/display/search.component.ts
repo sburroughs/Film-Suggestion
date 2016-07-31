@@ -19,8 +19,9 @@ export class SearchComponent {
     }
 
     public search() {
-        var results = this.service.search(this.query);
-        this.filmUpdates.emit(results);
+        this.service.search(this.query)
+            .then((results)=> this.filmUpdates.emit(results));
+
     }
 
 }
