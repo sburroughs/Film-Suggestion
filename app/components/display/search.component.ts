@@ -1,5 +1,6 @@
 import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {SearchService} from './search.service';
+import {Tag} from '../model/tag';
 
 
 @Component({
@@ -11,7 +12,9 @@ import {SearchService} from './search.service';
 })
 export class SearchComponent {
 
-    query;
+    query: string;
+
+    @Output() queryUpdates = new EventEmitter();
     @Output() filmUpdates = new EventEmitter();
 
     constructor(private service:SearchService) {
@@ -20,7 +23,12 @@ export class SearchComponent {
 
     public search() {
         this.service.search(this.query)
-            .then((results)=> this.filmUpdates.emit(results));
+            .then((results)=> {
+                this.filmUpdates.emit(results);
+
+                let tag: Tag = {'display': this.query}
+                this.queryUpdates.emit(tag);
+            });
 
     }
 

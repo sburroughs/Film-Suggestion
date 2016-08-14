@@ -1,7 +1,7 @@
 <div *ngIf="tags" class="panel panel-default">
     <ul class="list-inline">
-        <li *ngFor="#tag of tags"
-           class="tag">{{tag.display}}
+        <li *ngFor="#tag of tags">
+            <button type="button" class="btn btn-default" (click)="submitTag(tag)">{{tag.display}}</button>
         </li>
     </ul>
 </div>

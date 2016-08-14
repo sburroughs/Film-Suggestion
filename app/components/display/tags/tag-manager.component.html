@@ -1,0 +1,10 @@
+<div class="well">
+    <h3>Selections</h3>
+    <div class="row">
+        <ul>
+            <li *ngFor="#tag of selectedTags" class="col-sm-2 list-unstyled">
+                <button (click)="removeTag(tag)">{{tag.display}}</button>
+            </li>
+        </ul>
+    </div>
+</div>

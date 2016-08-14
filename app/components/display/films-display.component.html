@@ -1,8 +1,8 @@
-<h2>FILM DISPLAY</h2>
 <div *ngIf="films">
+    <h2>Films</h2>
     <ul class="list-unstyled">
         <li *ngFor="#film of films">
-            <film-view [film]="film"></film-view>
+            <film-view (tagSelected)="addTag($event)" [film]="film"></film-view>
         </li>
     </ul>
 </div>

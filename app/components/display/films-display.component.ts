@@ -1,5 +1,4 @@
-import {Component, Input, OnInit} from 'angular2/core';
-import {Media} from '../media/media';
+import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/core';
 import {FilmViewComponent} from './film-view.component'
 
 @Component({
@@ -11,8 +10,14 @@ export class FilmsDisplayComponent implements OnInit {
 
     @Input() films;
 
+    @Output() tagSelected = new EventEmitter();
+
     ngOnInit() {
 
+    }
+
+    addTag($event){
+        this.tagSelected.emit($event);
     }
 
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from 'angular2/core';
+import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/core';
 
 @Component({
     selector: 'tag-view',
@@ -8,8 +8,14 @@ export class TagViewComponent implements OnInit {
 
     @Input() tags;
 
+    @Output() selectTag = new EventEmitter();
+
     ngOnInit() {
 
+    }
+
+    submitTag(tag){
+        this.selectTag.emit(tag);
     }
 
 }
