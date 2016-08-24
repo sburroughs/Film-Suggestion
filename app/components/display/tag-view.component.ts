@@ -1,4 +1,6 @@
 import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/core';
+import {Tag} from "../model/tag";
+import {TagManagerService} from "./tags/tag-manager.service";
 
 @Component({
     selector: 'tag-view',
@@ -8,14 +10,16 @@ export class TagViewComponent implements OnInit {
 
     @Input() tags;
 
-    @Output() selectTag = new EventEmitter();
+    constructor(private tagManager:TagManagerService){
+
+    }
 
     ngOnInit() {
 
     }
 
-    submitTag(tag){
-        this.selectTag.emit(tag);
+    submitTag(tag:Tag){
+        this.tagManager.addTag(tag);
     }
 
 }

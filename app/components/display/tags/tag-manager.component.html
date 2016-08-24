@@ -3,7 +3,10 @@
     <div class="row">
         <ul>
             <li *ngFor="#tag of selectedTags" class="col-sm-2 list-unstyled">
-                <button (click)="removeTag(tag)">{{tag.display}}</button>
+                <div class="panel">
+                    <button (click)="removeTag(tag)" class="close pull-right"><span aria-hidden="true">&times;</span></button>
+                    <p class="panel-body">{{tag.display}}</p>
+                </div>
             </li>
         </ul>
     </div>

@@ -14,7 +14,7 @@ export class Film {
     'poster': string;
     'boxOffice': string;
     'tags': Tag[];
-    'watch': string[];
+    'watch': MediaAccess[];
 }
 
 export class Cast {
@@ -29,4 +29,8 @@ export class Ratings {
     'IMDB': string;
     'rottenTomatoes': string;
     'nominations': string;
+}
+
+export class MediaAccess{
+    url: string;
 }

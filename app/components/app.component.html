@@ -1,11 +1,11 @@
 <div class="container">
     <h1 class="jumbotron">Film Suggestion Application - POC</h1>
 
-    <search (queryUpdates)="addTag($event)" (filmUpdates)="setFilms($event)"></search>
+    <search (filmUpdates)="setFilms($event)"></search>
 
-    <tag-manager [selectedTags]="selectedTags"></tag-manager>
+    <tag-manager></tag-manager>
 
-    <films-display (tagSelected)="addTag($event)" [films]="films"></films-display>
+    <films-display [films]="films"></films-display>
 
     <footer>This is a footer</footer>
 </div>

@@ -3,7 +3,7 @@
     <div class="panel-body">
         <img src="app/img/sample.png" class="img-thumbnail col-sm-2" width="128" height="128">
         <p class="col-sm-4">{{film.plot}}</p>
-        <tag-view (selectTag)="addTag($event)" class="col-sm-4" [tags]="film.tags"></tag-view>
+        <tag-view (selectTag)="addTag($event)" class="col-sm-6" [tags]="film.tags"></tag-view>
     </div>
 </div>
 

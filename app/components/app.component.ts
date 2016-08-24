@@ -4,32 +4,25 @@ import {SearchComponent} from './display/search.component';
 import {TagManagerComponent} from "./display/tags/tag-manager.component";
 import {Film} from './model/film';
 import {Tag} from './model/tag';
+import {TagManagerService} from "./display/tags/tag-manager.service";
+import {ValuesPipe} from "./util/pipes/value-pipe";
 
 @Component({
     selector: 'app',
     templateUrl: 'app/components/app.component.html',
-    directives: [FilmsDisplayComponent, SearchComponent, TagManagerComponent]
+    directives: [SearchComponent, TagManagerComponent, FilmsDisplayComponent],
+    providers: [TagManagerService]
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
-    films: Film[];
+    films:Film[];
 
-    selectedTags: Tag[];
-
-    
-    setFilms($event){
+    setFilms($event) {
         this.films = $event;
     }
-    
-    addTag(tag:Tag){
-        this.selectedTags.add(tag);
+
+    ngOnInit() {
+
     }
-
-
-    ngOnInit(){
-        this.selectedTags = new Set();
-    }
-
-    
 
 }

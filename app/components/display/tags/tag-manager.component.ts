@@ -1,21 +1,24 @@
 import {Component, Input, OnInit} from 'angular2/core';
 import {Tag} from "../../model/tag";
+import {TagManagerService} from "../tags/tag-manager.service"
 
 @Component({
     selector: 'tag-manager',
     templateUrl: 'app/components/display/tags/tag-manager.component.html',
-    directives: []
 })
-export class TagManagerComponent implements OnInit {
+export class TagManagerComponent implements OnInit{
 
-    @Input() selectedTags: Tag[];
+    selectedTags:Tag[];
 
-    ngOnInit() {
+    constructor(private tagManager:TagManagerService) {
+    };
 
-    }
+    removeTag(tag:Tag):void {
+        this.tagManager.removeTag(tag);
+    };
 
-    removeTag(tag: Tag){
-        this.selectedTags.delete(tag);
+    ngOnInit(){
+        this.selectedTags = this.tagManager.tags;
     }
 
 }
