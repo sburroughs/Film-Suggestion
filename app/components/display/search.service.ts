@@ -6,14 +6,14 @@ export class SearchService {
 
     inverse:boolean = true;
 
-    public search(query) {
-
-
+    public search(query:string) {
+        
         return new Promise<Film[]>((resolve) => {
 
             var mock = [];
 
-            var count = query.length;
+            let count:number = query.length;
+
             for (var i = 0; i < count; i++) {
 
                 let filmA:Film = {

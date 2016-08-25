@@ -1,7 +1,7 @@
 <div *ngIf="films">
     <h2>Films</h2>
     <ul class="list-unstyled">
-        <li *ngFor="#film of films">
+        <li *ngFor="let film of films">
             <film-view (tagSelected)="addTag($event)" [film]="film"></film-view>
         </li>
     </ul>

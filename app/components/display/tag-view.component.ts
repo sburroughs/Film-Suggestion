@@ -6,15 +6,11 @@ import {TagManagerService} from "./tags/tag-manager.service";
     selector: 'tag-view',
     templateUrl: 'app/components/display/tag-view.component.html',
 })
-export class TagViewComponent implements OnInit {
+export class TagViewComponent {
 
     @Input() tags;
 
     constructor(private tagManager:TagManagerService){
-
-    }
-
-    ngOnInit() {
 
     }
 

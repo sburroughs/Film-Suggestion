@@ -1,7 +1,6 @@
-import {Component, Input, Output, EventEmitter} from 'angular2/core';
+import {Component, Output, EventEmitter} from 'angular2/core';
 import {SearchService} from './search.service';
 import {Tag} from '../model/tag';
-import {SpinnerService} from "../spinner/spinner.service";
 import {TagManagerService} from "./tags/tag-manager.service";
 
 
@@ -9,7 +8,7 @@ import {TagManagerService} from "./tags/tag-manager.service";
     selector: 'search',
     templateUrl: 'app/components/display/search.component.html',
     directives: [],
-    providers: [SearchService, SpinnerService]
+    providers: [SearchService]
 
 })
 export class SearchComponent {
@@ -18,25 +17,23 @@ export class SearchComponent {
 
     @Output() filmUpdates = new EventEmitter();
 
-    constructor(private service:SearchService, private spinner:SpinnerService, private tagManager:TagManagerService) {
+    constructor(private service:SearchService, private tagManager:TagManagerService) {
 
     }
 
     public search() {
-
-        this.spinner.start()
-
+        
         let query:string = this.query;
+        
+        let tag:Tag = new Tag();
+        tag.display = query;
+        this.tagManager.addTag(tag);
+
         this.service.search(query).then((films)=> {
-
-            let tag:Tag = {'display': query};
-            this.tagManager.addTag(tag);
-
             this.filmUpdates.emit(films);
-
-            this.spinner.stop();
         });
 
+        this.query = "";
     }
 
 }

@@ -1,5 +1,9 @@
-<div>
-    <label>Search:</label>
-    <input type="text" [(ngModel)]="query" required>
-    <button (click)=search(query)>Search</button>
+<div class="container">
+    <div class="row">
+        <form (ngSubmit)="search()" class="form-group">
+            <label>Search:</label>
+            <input type="text" name="search" [(ngModel)]="query" required>
+            <button type="submit" class="btn btn-default">Search</button>
+        </form>
+    </div>
 </div>
