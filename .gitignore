@@ -1,4 +1,2 @@
-webapp/*.js
-webapp/*.js.map
-webapp/components/*/*.js
-webapp/components/*/*.js.map
+.idea/
+
