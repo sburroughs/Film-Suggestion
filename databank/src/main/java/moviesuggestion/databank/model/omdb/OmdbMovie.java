@@ -1,30 +1,56 @@
-package moviesuggestion.databank.providers.omdb;
+package moviesuggestion.databank.model.omdb;
 
-/**
- * Created by Sburroughs on 9/3/2016.
- */
-public class OmdbMovie {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import moviesuggestion.databank.model.MovieContent;
 
+import java.io.Serializable;
+import java.util.Date;
+
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OmdbMovie implements MovieContent, Serializable {
+
+    @JsonProperty("Title")
     private String title;
+    @JsonProperty("Year")
     private String year;
+    @JsonProperty("Rated")
     private String rated;
-    private String released;
+    @JsonProperty("Released")
+    private Date releaseDate;
+    @JsonProperty("Runtime")
     private String runtime;
+    @JsonProperty("Genre")
     private String genre;
+    @JsonProperty("Director")
     private String director;
+    @JsonProperty("Writer")
     private String writer;
+    @JsonProperty("Actors")
     private String actors;
+    @JsonProperty("Plot")
     private String plot;
+    @JsonProperty("Language")
     private String language;
+    @JsonProperty("Country")
     private String country;
+    @JsonProperty("Awards")
     private String awards;
+    @JsonProperty("Poster")
     private String poster;
+    @JsonProperty("Metascore")
     private String metascore;
+    @JsonProperty("imdbRating")
     private String imdbrating;
+    @JsonProperty("imdbVotes")
     private String imdbVotes;
+    @JsonProperty("imdbID")
     private String imdbId;
+    @JsonProperty("Type")
     private String type;
-    private boolean response;
+    @JsonProperty("Response")
+    private String response;
 
     public String getTitle() {
         return title;
@@ -50,12 +76,12 @@ public class OmdbMovie {
         this.rated = rated;
     }
 
-    public String getReleased() {
-        return released;
+    public Date getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setReleased(String released) {
-        this.released = released;
+    public void setReleased(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public String getRuntime() {
@@ -178,11 +204,11 @@ public class OmdbMovie {
         this.type = type;
     }
 
-    public boolean isResponse() {
+    public String getResponse() {
         return response;
     }
 
-    public void setResponse(boolean response) {
+    public void setResponse(String response) {
         this.response = response;
     }
 
