@@ -1,6 +1,5 @@
-package moviesuggestion.databank.io.providers.omdb;
+package moviesuggestion.databank.io.pipeline.converter;
 
-import moviesuggestion.databank.io.pipeline.MovieConverter;
 import moviesuggestion.databank.model.movie.Genre;
 import moviesuggestion.databank.model.movie.MPAA;
 import moviesuggestion.databank.model.movie.Movie;
@@ -9,7 +8,7 @@ import moviesuggestion.databank.model.omdb.OmdbMovie;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class OmdbToMovieConverter implements MovieConverter<OmdbMovie> {
+public final class OmdbMovieConverter implements MovieConverter<OmdbMovie> {
 
     @Override
     public Movie convert(long id, OmdbMovie source) {

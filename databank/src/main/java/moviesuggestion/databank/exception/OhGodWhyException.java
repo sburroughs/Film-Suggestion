@@ -1,4 +1,4 @@
-package moviesuggestion.databank.io.pipeline;
+package moviesuggestion.databank.exception;
 
 /**
  * Created by Sburroughs on 9/14/2016.

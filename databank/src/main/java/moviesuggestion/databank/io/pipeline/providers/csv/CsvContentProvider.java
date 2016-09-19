@@ -1,14 +1,13 @@
-package moviesuggestion.databank.io.providers.csv;
+package moviesuggestion.databank.io.pipeline.providers.csv;
 
-import moviesuggestion.databank.io.pipeline.OhGodWhyException;
+import moviesuggestion.databank.exception.OhGodWhyException;
+import moviesuggestion.databank.io.pipeline.providers.SourceImportProvider;
 import moviesuggestion.databank.model.MovieContent;
 import moviesuggestion.databank.model.movie.MPAA;
 import moviesuggestion.databank.model.movie.Movie;
-import moviesuggestion.databank.io.providers.MovieContentProvider;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
@@ -18,12 +17,15 @@ import java.util.List;
 /**
  * Created by Sburroughs on 9/14/2016.
  */
-public class CsvContentProvider implements MovieContentProvider {
+public class CsvContentProvider implements SourceImportProvider {
 
-    private final String csvPath;
+    private final Reader reader;
 
-    public CsvContentProvider(String csvPath) {
-        this.csvPath = csvPath;
+    /**
+     * @param reader - required for accessing csv data. not null
+     */
+    public CsvContentProvider(Reader reader) {
+        this.reader = reader;
     }
 
     @Override
@@ -33,8 +35,7 @@ public class CsvContentProvider implements MovieContentProvider {
 
         try {
 
-            Reader in = new FileReader(csvPath);
-            Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
+            Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(reader);
             for (CSVRecord record : records) {
 
                 String title = record.get(Header.TITLE);

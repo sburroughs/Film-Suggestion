@@ -1,4 +1,4 @@
-package moviesuggestion.databank.io.pipeline;
+package moviesuggestion.databank.io.pipeline.converter;
 
 import moviesuggestion.databank.model.MovieContent;
 import moviesuggestion.databank.model.movie.Movie;

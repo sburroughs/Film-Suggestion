@@ -18,7 +18,7 @@ public class OmdbMovie implements MovieContent, Serializable {
     @JsonProperty("Rated")
     private String rated;
     @JsonProperty("Released")
-    private Date releaseDate;
+    private String released;
     @JsonProperty("Runtime")
     private String runtime;
     @JsonProperty("Genre")
@@ -56,6 +56,10 @@ public class OmdbMovie implements MovieContent, Serializable {
         return title;
     }
 
+    public Date getReleaseDate(){
+        return new Date(released);
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -76,12 +80,12 @@ public class OmdbMovie implements MovieContent, Serializable {
         this.rated = rated;
     }
 
-    public Date getReleaseDate() {
-        return releaseDate;
+    public String getRelease() {
+        return released;
     }
 
-    public void setReleased(Date releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setRelease(String released) {
+        this.released = released;
     }
 
     public String getRuntime() {
