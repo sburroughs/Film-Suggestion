@@ -11,18 +11,16 @@ import java.util.List;
 public final class OmdbMovieConverter implements MovieConverter<OmdbMovie> {
 
     @Override
-    public Movie convert(long id, OmdbMovie source) {
+    public Movie convert(OmdbMovie update, Movie source) {
 
-        Movie movie = new Movie();
-        movie.setId(id);
-        movie.setTitle(source.getTitle());
-        movie.setReleaseDate(source.getReleaseDate());
-        movie.setRated(MPAA.valueOf(source.getRated()));
-        movie.setRuntime(parseRuntime(source.getRuntime()));
-        movie.setPlot(source.getPlot());
+        source.setTitle(source.getTitle());
+        source.setReleaseDate(source.getReleaseDate());
+        source.setRated(MPAA.valueOf(update.getRated()));
+        source.setRuntime(parseRuntime(update.getRuntime()));
+        source.setPlot(source.getPlot());
 //        movie.setGenres(parseGenre(id, movie, source.getGenre()));
 
-        return movie;
+        return source;
 
     }
 

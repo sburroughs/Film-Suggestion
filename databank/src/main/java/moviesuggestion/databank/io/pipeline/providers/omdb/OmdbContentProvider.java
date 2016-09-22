@@ -33,7 +33,7 @@ public class OmdbContentProvider implements UpdateImportProvider<OmdbMovie> {
     }
 
     @Override
-    public List<OmdbMovie> getAll(List<Movie> original) {
+    public List<OmdbMovie> update(List<Movie> original) {
 
         List<OmdbMovie> movies = new ArrayList<>();
 

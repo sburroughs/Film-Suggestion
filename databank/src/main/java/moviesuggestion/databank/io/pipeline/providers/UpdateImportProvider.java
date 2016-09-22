@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface UpdateImportProvider<T extends MovieContent> extends MovieContentProvider<T>{
 
-    List<T> getAll(List<Movie> originals);
+    List<T> update(List<Movie> originals);
 
 }

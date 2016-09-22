@@ -21,17 +21,17 @@ public class MovieImportPipeline<T extends MovieContent> {
 
     private final static Logger log = LoggerFactory.getLogger(MovieImportPipeline.class);
 
-    private SourceImportProvider<T> contentProvider;
+    private SourceImportProvider<T> provider;
     private MovieConverter<T> converter;
     private MovieRepository movieRepository;
     private MovieMatcher movieMatcher;
 
     @Autowired
     public MovieImportPipeline(MovieRepository movieRepository,
-                               SourceImportProvider contentProvider,
+                               SourceImportProvider provider,
                                MovieConverter converter,
                                MovieMatcher movieMatcher) {
-        this.contentProvider = contentProvider;
+        this.provider = provider;
         this.movieRepository = movieRepository;
         this.converter = converter;
         this.movieMatcher = movieMatcher;
@@ -39,20 +39,17 @@ public class MovieImportPipeline<T extends MovieContent> {
 
     public void run() throws OhGodWhyException {
 
-    List<T> movies = contentProvider.getAll();
+        List<T> movies = provider.getAll();
 
         for (T source : movies) {
 
-            long id = movieMatcher.getId(source);
-            Movie movie = converter.convert(id, source);
+            Movie original = movieMatcher.match(source);
+            Movie movie = converter.convert(source, original);
             movieRepository.save(movie);
 
         }
 
     }
-
-
-
 
 }
 

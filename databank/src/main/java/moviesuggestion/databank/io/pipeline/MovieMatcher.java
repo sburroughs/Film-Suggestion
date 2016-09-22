@@ -26,7 +26,7 @@ public class MovieMatcher {
      * @param source
      * @return
      */
-    public long getId(MovieContent source) {
+    public Movie match(MovieContent source) {
 
         String title = source.getTitle();
         Date releaseDate = source.getReleaseDate();
@@ -46,9 +46,7 @@ public class MovieMatcher {
             results.add(saved);
 
         }
-        long id = results.get(0).getId();
-
-        return id;
+        return results.get(0);
 
     }
 

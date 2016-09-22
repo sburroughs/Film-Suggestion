@@ -8,6 +8,6 @@ import moviesuggestion.databank.model.movie.Movie;
  */
 public interface MovieConverter<T extends MovieContent> {
 
-    Movie convert(long id, T sourceMovie);
+    Movie convert(T update, Movie source);
 
 }

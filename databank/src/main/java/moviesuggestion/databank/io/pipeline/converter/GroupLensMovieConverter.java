@@ -9,11 +9,12 @@ import moviesuggestion.databank.model.movie.Movie;
 public class GroupLensMovieConverter implements MovieConverter<GroupLensMovie> {
 
     @Override
-    public Movie convert(long id, GroupLensMovie sourceMovie) {
+    public Movie convert(GroupLensMovie update, Movie source) {
 
-        Movie movie = new Movie();
-//        movie.setTitle();
-        return movie;
+        source.setTitle(update.getTitle());
+        source.setReleaseDate(update.getReleaseDate());
+
+        return source;
     }
 
 }

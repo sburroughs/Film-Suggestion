@@ -10,6 +10,4 @@ import java.util.List;
  */
 public interface MovieContentProvider<T extends MovieContent>{
 
-    List<T> getAll() throws OhGodWhyException;
-
 }

@@ -4,7 +4,7 @@ package moviesuggestion.databank.io.pipeline.providers.grouplens;
  * Created by Sburroughs on 9/18/2016.
  */
 
-import moviesuggestion.databank.io.pipeline.MovieImportPipeline;
+import moviesuggestion.databank.io.pipeline.MovieUpdatePipeline;
 import moviesuggestion.databank.exception.OhGodWhyException;
 import moviesuggestion.databank.io.pipeline.providers.SourceImportProvider;
 import moviesuggestion.databank.model.grouplens.GroupLensMovie;
@@ -22,7 +22,7 @@ import java.util.*;
  */
 public class GroupLensCsvProvider implements SourceImportProvider<GroupLensMovie> {
 
-    private final static Logger log = LoggerFactory.getLogger(MovieImportPipeline.class);
+    private final static Logger log = LoggerFactory.getLogger(MovieUpdatePipeline.class);
 
     //TODO: broken regex. Fix and use
     private final String DATE_REGEX = "/\\((\\d{4})\\)$/g";
@@ -48,8 +48,8 @@ public class GroupLensCsvProvider implements SourceImportProvider<GroupLensMovie
 
                 try {
 
-                    String titleDateValue = record.get(CsvHeader.title);
-                    String genreValue = record.get(CsvHeader.genres);
+                    String titleDateValue = record.get(Header.title);
+                    String genreValue = record.get(Header.genres);
 
                     String title = parseTitle(titleDateValue);
                     Date releaseDate = parseRelease(titleDateValue);
@@ -122,7 +122,7 @@ public class GroupLensCsvProvider implements SourceImportProvider<GroupLensMovie
 
 }
 
-enum CsvHeader {
+enum Header {
     title,
     genres
 }

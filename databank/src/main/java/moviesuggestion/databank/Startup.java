@@ -1,6 +1,7 @@
 package moviesuggestion.databank;
 
 import moviesuggestion.databank.io.pipeline.MovieImportPipeline;
+import moviesuggestion.databank.io.pipeline.MovieUpdatePipeline;
 import moviesuggestion.databank.exception.OhGodWhyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
