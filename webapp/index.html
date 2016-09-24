@@ -8,31 +8,25 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="../app/css/application.css">
 
-    <!-- IE required polyfills, in this exact order -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.33.3/es6-shim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.20/system-polyfills.js"></script>
-    <script src="https://npmcdn.com/angular2@2.0.0-beta.17/es6/dev/src/testing/shims_for_IE.js"></script>
+    <!-- 1. Load libraries -->
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
 
-    <script src="https://code.angularjs.org/2.0.0-beta.17/angular2-polyfills.js"></script>
-    <script src="https://code.angularjs.org/tools/system.js"></script>
-    <script src="https://npmcdn.com/typescript@1.8.2/lib/typescript.js"></script>
-    <script src="https://code.angularjs.org/2.0.0-beta.17/Rx.js"></script>
-    <script src="https://code.angularjs.org/2.0.0-beta.17/angular2.dev.js"></script>
-    <script src="https://code.angularjs.org/2.0.0-beta.17/router.dev.js"></script>
+    <!-- 2. Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
+    <script>
+        System.import('app').catch(function(err){ console.error(err); });
+    </script>
 
-    <!--<script src="node_modules/underscore/underscore.js"></script>-->
+</head>
 
     <script>
-        System.config({
-            transpiler: 'typescript',
-            typescriptOptions: {emitDecoratorMetadata: true},
-            packages: {
-                'app': {defaultExtension: 'ts'},
-            }
-        });
-        System.import('../app/main')
-                .then(null, console.error.bind(console));
+        System.import('../app/main').then(null, console.error.bind(console));
     </script>
+
 </head>
 
 <body>

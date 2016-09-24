@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/core';
+import {Component, Input} from '@angular/core';
 import {Tag} from "../model/tag";
 import {TagManagerService} from "./tags/tag-manager.service";
 

@@ -1,9 +1,11 @@
 <div class="container">
     <div class="row">
-        <form (ngSubmit)="search()" class="form-group">
-            <label>Search:</label>
-            <input type="text" name="search" [(ngModel)]="query" required>
-            <button type="submit" class="btn btn-default">Search</button>
+        <form (ngSubmit)="search()">
+            <div class="form-group">
+                <label>Search:</label>
+                <input type="text" name="query" [(ngModel)]="query" placeholder="Search something, bitch." required>
+                <button type="submit" class="btn btn-default">Search</button>
+            </div>
         </form>
     </div>
 </div>
