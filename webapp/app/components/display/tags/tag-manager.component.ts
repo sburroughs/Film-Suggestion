@@ -10,15 +10,15 @@ export class TagManagerComponent implements OnInit{
 
     selectedTags:Tag[];
 
-    constructor(private tagManager:TagManagerService) {
+    constructor(private tagManagerService:TagManagerService) {
     };
 
     removeTag(tag:Tag):void {
-        this.tagManager.removeTag(tag);
+        this.tagManagerService.getTagManager().removeLike(tag);
     };
 
     ngOnInit(){
-        this.selectedTags = this.tagManager.tags;
+        this.selectedTags = this.tagManagerService.getTagManager().like;
     }
 
 }

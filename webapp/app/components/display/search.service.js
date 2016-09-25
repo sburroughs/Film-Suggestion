@@ -11,13 +11,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 require('rxjs/Rx');
+var Observable_1 = require('rxjs/Observable');
 var SearchService = (function () {
-    function SearchService(http) {
-        this.http = http;
-        this.endpoint_url = "localhost:8080/";
+    function SearchService(_http) {
+        this._http = _http;
+        this.endpoint_url = "http://localhost:8080/search";
+        this.headers = new http_1.Headers();
+        this.headers.append('Content-Type', 'application/json');
+        this.headers.append('Accept', 'application/json');
     }
-    SearchService.prototype.search = function (query) {
-        return this.http.get(this.endpoint_url + query).map(function (res) { return res.json(); });
+    // public search(tagManager: TagManager): Observable<Film[]> {
+    SearchService.prototype.search = function (likes) {
+        console.log(likes);
+        var tags = likes.map(function (tag) {
+            return tag['display'];
+        });
+        var params = new http_1.URLSearchParams();
+        params.set('likes', tags.toString());
+        var yeah = this._http.get(this.endpoint_url, { 'search': params })
+            .map(function (response) { return response.json(); })
+            .catch(function (error) {
+            console.log("BONE SAW IS READY");
+            console.error(error);
+            return Observable_1.Observable.throw(error.json().error || 'Server error');
+        });
+        console.log(yeah);
+        return yeah;
     };
     SearchService = __decorate([
         core_1.Injectable(), 

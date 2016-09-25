@@ -11,16 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var tag_manager_service_1 = require("../tags/tag-manager.service");
 var TagManagerComponent = (function () {
-    function TagManagerComponent(tagManager) {
-        this.tagManager = tagManager;
+    function TagManagerComponent(tagManagerService) {
+        this.tagManagerService = tagManagerService;
     }
     ;
     TagManagerComponent.prototype.removeTag = function (tag) {
-        this.tagManager.removeTag(tag);
+        this.tagManagerService.getTagManager().removeLike(tag);
     };
     ;
     TagManagerComponent.prototype.ngOnInit = function () {
-        this.selectedTags = this.tagManager.tags;
+        this.selectedTags = this.tagManagerService.getTagManager().like;
     };
     TagManagerComponent = __decorate([
         core_1.Component({

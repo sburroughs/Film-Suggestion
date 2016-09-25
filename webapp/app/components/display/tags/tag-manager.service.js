@@ -9,22 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var tag_manager_1 = require("../../model/tag-manager");
 var TagManagerService = (function () {
     function TagManagerService() {
-        this.tags = [];
+        this.tagManager = new tag_manager_1.TagManager();
     }
-    TagManagerService.prototype.addTag = function (tag) {
-        var index = this.tags.findIndex(function (t) { return t.display == tag.display; });
-        if (index === -1) {
-            this.tags.push(tag);
-        }
-        console.log(this.tags);
-    };
-    TagManagerService.prototype.removeTag = function (tag) {
-        var idx = this.tags.indexOf(tag);
-        if (idx !== -1) {
-            this.tags.splice(idx, 1);
-        }
+    TagManagerService.prototype.getTagManager = function () {
+        return this.tagManager;
     };
     TagManagerService = __decorate([
         core_1.Injectable(), 

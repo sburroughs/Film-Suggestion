@@ -1,13 +1,11 @@
 package moviesuggestion.suggest.web;
 
-
 import moviesuggestion.suggest.model.Movie;
-import moviesuggestion.suggest.model.Tag;
+import moviesuggestion.suggest.service.SearchRequest;
 import moviesuggestion.suggest.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,14 +18,15 @@ public class SearchController {
     @Autowired
     private SearchService searchService;
 
-    @RequestMapping("/search")
+    @CrossOrigin
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody
-    public List<Movie> search(List<Tag> tags) {
+    public List<Movie> search(@RequestParam List<String> likes) {
 
-        List<Movie> results = searchService.search(tags);
+        SearchRequest searchRequest = new SearchRequest(likes);
+
+        List<Movie> results = searchService.search(searchRequest);
         return results;
 
     }
-
-
 }

@@ -13,20 +13,25 @@ var search_service_1 = require('./search.service');
 var tag_1 = require('../model/tag');
 var tag_manager_service_1 = require("./tags/tag-manager.service");
 var SearchComponent = (function () {
-    function SearchComponent(service, tagManager) {
+    function SearchComponent(service, tagManagerService) {
         this.service = service;
-        this.tagManager = tagManager;
+        this.tagManagerService = tagManagerService;
         this.filmUpdates = new core_1.EventEmitter();
     }
     SearchComponent.prototype.search = function () {
-        var query = this.query;
-        var tag = new tag_1.Tag();
-        tag.display = query;
-        this.tagManager.addTag(tag);
-        // this.service.search(query).subscribe((films)=> {
-        //     this.filmUpdates.emit(films);
-        // });
+        var _this = this;
+        var display = this.query;
+        var tag = new tag_1.Tag(display);
+        var tagManager = this.tagManagerService.getTagManager();
+        tagManager.addLike(tag);
+        var searchTags = tagManager.like;
+        this.service.search(searchTags).subscribe(function (films) {
+            _this.filmUpdates.emit(films);
+            console.log("SHOOOOOOOOO");
+        });
+        console.log("OH YEAH");
         this.query = "";
+        return false;
     };
     __decorate([
         core_1.Output(), 

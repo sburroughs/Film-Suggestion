@@ -1,6 +1,7 @@
 "use strict";
 var Tag = (function () {
-    function Tag() {
+    function Tag(display) {
+        this.display = display;
     }
     return Tag;
 }());

@@ -19,9 +19,10 @@ public class SearchService {
     @Autowired
     private MovieRepository movieRepository;
 
-    public List<Movie> search(List<Tag> tags){
+    public List<Movie> search(SearchRequest searchRequest){
 
-        String queryString = buildQueryString(tags);
+        List<String> likes = searchRequest.getLikes();
+        String queryString = buildQueryString(likes);
 
         SolrQuery query = new SolrQuery();
         query.setQuery(queryString);
@@ -32,14 +33,14 @@ public class SearchService {
 
     }
 
-    private String buildQueryString(List<Tag> tags) {
+    private String buildQueryString(List<String> likes) {
 
 //        StringBuilder builder = new StringBuilder();
 //        for(Tag tag : tags){
 //            builder.append(tag.getSearchKeyword())
 //        }
 
-        return tags.get(0).getSearchKeyword();
+        return likes.get(0);
 
 
     }
