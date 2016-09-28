@@ -13,10 +13,6 @@ public final class OmdbMovieConverter implements MovieConverter<OmdbMovie> {
     @Override
     public Movie convert(OmdbMovie update, Movie source) {
 
-        if (update == null || update.getTitle() == null || update.getRelease() == null) {
-
-        }
-
         source.setTitle(update.getTitle());
         source.setReleaseDate(update.getReleaseDate());
         source.setRated(parseRating(update.getRated()));

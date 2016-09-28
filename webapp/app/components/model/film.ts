@@ -2,7 +2,7 @@ import {Tag} from './tag';
 
 export class Film {
     title: string;
-    releaseDate: string;
+    releaseDate: Date;
     rated: string;
     runtime: string;
     plot: string;

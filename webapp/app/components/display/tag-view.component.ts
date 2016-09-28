@@ -15,7 +15,7 @@ export class TagViewComponent {
     }
 
     submitTag(tag:Tag){
-        this.tagManager.addTag(tag);
+        this.tagManager.addLike(tag);
     }
 
 }

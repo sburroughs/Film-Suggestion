@@ -3,7 +3,6 @@ import {Http, Headers, Response, URLSearchParams} from '@angular/http';
 import 'rxjs/Rx'
 import {Film} from "../model/film";
 import {Observable} from 'rxjs/Observable';
-import {TagManager} from "../model/tag-manager";
 import {Tag} from "../model/tag";
 
 
@@ -25,26 +24,19 @@ export class SearchService {
     // public search(tagManager: TagManager): Observable<Film[]> {
     public search(likes: Tag[]): Observable<Film[]> {
 
-        console.log(likes);
-
-        var tags = likes.map(function(tag) {
+        var tags = likes.map(function (tag) {
             return tag['display'];
         });
 
         let params: URLSearchParams = new URLSearchParams();
         params.set('likes', tags.toString());
 
-        var yeah = this._http.get(this.endpoint_url, {'search':params})
+        return this._http.get(this.endpoint_url, {'search': params})
             .map((response: Response) => <Film[]>response.json())
             .catch((error)=> {
-                console.log("BONE SAW IS READY");
                 console.error(error);
-
                 return Observable.throw(error.json().error || 'Server error');
             });
-        console.log(yeah);
-
-        return yeah;
     }
 
 }

@@ -1,4 +1,4 @@
-import {Component, Input, NgModule} from '@angular/core';
+import {Component, Input, NgModule, OnInit} from '@angular/core';
 import {Film} from "../model/film";
 import {Tag} from "../model/tag";
 import {TagManagerService} from "./tags/tag-manager.service";
@@ -8,20 +8,29 @@ import {TagManagerService} from "./tags/tag-manager.service";
     selector: 'film-view',
     templateUrl: 'app/components/display/film-view.component.html',
 })
-export class FilmViewComponent {
+export class FilmViewComponent implements OnInit {
+
 
     @Input() film: Film;
 
-    constructor(private tagManager:TagManagerService){
+    year:any;
+
+    constructor(private tagManager: TagManagerService) {
 
     }
 
-    addTag(){
+    ngOnInit(): void {
+
+        console.log(this.film);
+
+    }
+
+    addTag() {
         let title = this.film.title;
 
-        let tag:Tag = new Tag();
+        let tag: Tag = new Tag(title);
         tag.display = title;
-        this.tagManager.addTag(tag);
+        this.tagManager.addLike(tag);
     }
 
 }

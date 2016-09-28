@@ -16,11 +16,14 @@ var FilmViewComponent = (function () {
     function FilmViewComponent(tagManager) {
         this.tagManager = tagManager;
     }
+    FilmViewComponent.prototype.ngOnInit = function () {
+        console.log(this.film);
+    };
     FilmViewComponent.prototype.addTag = function () {
         var title = this.film.title;
-        var tag = new tag_1.Tag();
+        var tag = new tag_1.Tag(title);
         tag.display = title;
-        this.tagManager.addTag(tag);
+        this.tagManager.addLike(tag);
     };
     __decorate([
         core_1.Input(), 

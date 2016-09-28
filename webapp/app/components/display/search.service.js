@@ -22,21 +22,17 @@ var SearchService = (function () {
     }
     // public search(tagManager: TagManager): Observable<Film[]> {
     SearchService.prototype.search = function (likes) {
-        console.log(likes);
         var tags = likes.map(function (tag) {
             return tag['display'];
         });
         var params = new http_1.URLSearchParams();
         params.set('likes', tags.toString());
-        var yeah = this._http.get(this.endpoint_url, { 'search': params })
+        return this._http.get(this.endpoint_url, { 'search': params })
             .map(function (response) { return response.json(); })
             .catch(function (error) {
-            console.log("BONE SAW IS READY");
             console.error(error);
             return Observable_1.Observable.throw(error.json().error || 'Server error');
         });
-        console.log(yeah);
-        return yeah;
     };
     SearchService = __decorate([
         core_1.Injectable(), 

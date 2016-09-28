@@ -9,13 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var tag_manager_1 = require("../../model/tag-manager");
 var TagManagerService = (function () {
+    // dislike: Set<Tag>;
     function TagManagerService() {
-        this.tagManager = new tag_manager_1.TagManager();
+        this.like = [];
     }
-    TagManagerService.prototype.getTagManager = function () {
-        return this.tagManager;
+    TagManagerService.prototype.addLike = function (tag) {
+        var index = this.like.findIndex(function (t) { return t.display == tag.display; });
+        if (index === -1) {
+            this.like.push(tag);
+        }
+    };
+    TagManagerService.prototype.removeLike = function (tag) {
+        var idx = this.like.indexOf(tag);
+        if (idx !== -1) {
+            this.like.splice(idx, 1);
+        }
     };
     TagManagerService = __decorate([
         core_1.Injectable(), 

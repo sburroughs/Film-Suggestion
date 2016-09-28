@@ -16,11 +16,11 @@ var TagManagerComponent = (function () {
     }
     ;
     TagManagerComponent.prototype.removeTag = function (tag) {
-        this.tagManagerService.getTagManager().removeLike(tag);
+        this.tagManagerService.removeLike(tag);
     };
     ;
     TagManagerComponent.prototype.ngOnInit = function () {
-        this.selectedTags = this.tagManagerService.getTagManager().like;
+        this.selectedTags = this.tagManagerService.like;
     };
     TagManagerComponent = __decorate([
         core_1.Component({

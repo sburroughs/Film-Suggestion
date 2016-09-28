@@ -14,11 +14,11 @@ export class TagManagerComponent implements OnInit{
     };
 
     removeTag(tag:Tag):void {
-        this.tagManagerService.getTagManager().removeLike(tag);
+        this.tagManagerService.removeLike(tag);
     };
 
     ngOnInit(){
-        this.selectedTags = this.tagManagerService.getTagManager().like;
+        this.selectedTags = this.tagManagerService.like;
     }
 
 }

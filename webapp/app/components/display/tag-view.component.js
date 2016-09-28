@@ -15,7 +15,7 @@ var TagViewComponent = (function () {
         this.tagManager = tagManager;
     }
     TagViewComponent.prototype.submitTag = function (tag) {
-        this.tagManager.addTag(tag);
+        this.tagManager.addLike(tag);
     };
     __decorate([
         core_1.Input(), 
