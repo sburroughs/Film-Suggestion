@@ -15,17 +15,13 @@ import org.springframework.stereotype.Component;
 public class Startup implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
-    MovieImportPipeline pipeline;
+    MovieUpdatePipeline pipeline;
 
     @Override
     public void onApplicationEvent(final ContextRefreshedEvent event) {
 
         //TODO: temporary for testing. Remove in production
-        try {
-            pipeline.run();
-        } catch (OhGodWhyException e) {
-            e.printStackTrace();
-        }
+        pipeline.run();
 
     }
 

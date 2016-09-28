@@ -8,8 +8,12 @@ import moviesuggestion.databank.repository.MovieRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Component;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -20,33 +24,44 @@ public class MovieUpdatePipeline<T extends MovieContent> {
 
     private final static Logger log = LoggerFactory.getLogger(MovieUpdatePipeline.class);
 
+    private MovieRepository movieRepository;
     private UpdateImportProvider<T> provider;
     private MovieConverter<T> converter;
-    private MovieRepository movieRepository;
-    private MovieMatcher movieMatcher;
 
     @Autowired
     public MovieUpdatePipeline(MovieRepository movieRepository,
-                               UpdateImportProvider provider,
-                               MovieConverter converter,
-                               MovieMatcher movieMatcher) {
+                               UpdateImportProvider<T> provider,
+                               MovieConverter<T> converter) {
         this.provider = provider;
         this.movieRepository = movieRepository;
         this.converter = converter;
-        this.movieMatcher = movieMatcher;
     }
 
     public void run() {
 
-        List<Movie> updateList = movieRepository.findAll();
+        log.info("Update Pipeline Start: {}", Calendar.getInstance().getTime());
 
-        List<T> movies = provider.update(updateList);
+        Pageable limit = new PageRequest(0, 50);
+        Slice<Movie> sliceUpdateList = movieRepository.findAll(limit);
 
-        for (T source : movies) {
+        List<Movie> movies = sliceUpdateList.getContent();
 
-            Movie original = movieMatcher.match(source);
-            Movie movie = converter.convert(source, original);
-            movieRepository.save(movie);
+        log.info("Titles: {}", movies.size());
+
+        for (Movie currentMovie : movies) {
+
+            String title = currentMovie.getTitle();
+
+            T update = provider.update(currentMovie);
+            if (update == null || update.getTitle() == null || update.getReleaseDate() == null) {
+                log.error("Unable to Update {}: Upstream Update Missing required values", title);
+                continue;
+            }
+
+            Movie converted = converter.convert(update, currentMovie);
+
+            log.info("Updating: {}", title);
+            movieRepository.save(converted);
 
         }
 

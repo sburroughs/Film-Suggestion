@@ -16,7 +16,6 @@ import java.util.List;
 /**
  * Created by Sburroughs on 9/3/2016.
  */
-@Service
 public class OmdbContentProvider implements UpdateImportProvider<OmdbMovie> {
 
     private final String BASE_URL = "http://www.omdbapi.com/";
@@ -33,25 +32,31 @@ public class OmdbContentProvider implements UpdateImportProvider<OmdbMovie> {
     }
 
     @Override
+    public OmdbMovie update(Movie original) {
+
+        String title = original.getTitle();
+        String year = new SimpleDateFormat("yyyy").format(original.getReleaseDate());
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(BASE_URL)
+                .queryParam("t", title)
+                .queryParam("y", year)
+                .queryParam("plot", "full")
+                .queryParam("r", "json");
+
+        OmdbMovie source = restTemplate.getForObject(builder.build().encode().toUri(), OmdbMovie.class);
+
+        return source;
+
+    }
+
+    @Override
     public List<OmdbMovie> update(List<Movie> original) {
 
         List<OmdbMovie> movies = new ArrayList<>();
 
         for (Movie movie : original) {
-
-            String title = movie.getTitle();
-            String year = new SimpleDateFormat("yyyy").format(movie.getReleaseDate());
-
-            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(BASE_URL)
-                    .queryParam("t", title)
-                    .queryParam("y", year)
-                    .queryParam("plot", "full")
-                    .queryParam("r", "json");
-
-            OmdbMovie source = restTemplate.getForObject(builder.build().encode().toUri(), OmdbMovie.class);
-
-            movies.add(source);
-
+            OmdbMovie omdb = update(movie);
+            movies.add(omdb);
         }
 
         return movies;

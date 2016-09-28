@@ -13,11 +13,15 @@ public final class OmdbMovieConverter implements MovieConverter<OmdbMovie> {
     @Override
     public Movie convert(OmdbMovie update, Movie source) {
 
-        source.setTitle(source.getTitle());
-        source.setReleaseDate(source.getReleaseDate());
-        source.setRated(MPAA.valueOf(update.getRated()));
+        if (update == null || update.getTitle() == null || update.getRelease() == null) {
+
+        }
+
+        source.setTitle(update.getTitle());
+        source.setReleaseDate(update.getReleaseDate());
+        source.setRated(parseRating(update.getRated()));
         source.setRuntime(parseRuntime(update.getRuntime()));
-        source.setPlot(source.getPlot());
+        source.setPlot(update.getPlot());
 //        movie.setGenres(parseGenre(id, movie, source.getGenre()));
 
         return source;
@@ -28,7 +32,19 @@ public final class OmdbMovieConverter implements MovieConverter<OmdbMovie> {
         return Integer.parseInt(runtime.replaceAll("[^\\d]", ""));
     }
 
+    private MPAA parseRating(String rating) {
+
+        if (rating.equalsIgnoreCase("N/A")) {
+            return null;
+        }
+
+        String formattedRating = rating.replaceAll("-", "");
+        return MPAA.valueOf(formattedRating);
+
+    }
+
     private List<Genre> parseGenre(long id, Movie movie, String original) {
+
         List<Genre> genres = new ArrayList<>();
 
         String[] genreParsed = original.split(",");
@@ -41,7 +57,7 @@ public final class OmdbMovieConverter implements MovieConverter<OmdbMovie> {
         }
 
         return genres;
-    }
 
+    }
 
 }
