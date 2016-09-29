@@ -22,28 +22,11 @@ public class SearchService {
     public List<Movie> search(SearchRequest searchRequest){
 
         List<String> likes = searchRequest.getLikes();
-        String queryString = buildQueryString(likes);
 
-        SolrQuery query = new SolrQuery();
-        query.setQuery(queryString);
-
-        List<Movie> results = movieRepository.findByTitle(queryString);
+        List<Movie> results = movieRepository.findByTitleIn(likes);
 
         return results;
 
     }
-
-    private String buildQueryString(List<String> likes) {
-
-//        StringBuilder builder = new StringBuilder();
-//        for(Tag tag : tags){
-//            builder.append(tag.getSearchKeyword())
-//        }
-
-        return likes.get(0);
-
-
-    }
-
 
 }

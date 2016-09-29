@@ -10,7 +10,9 @@ import java.util.List;
 @Transactional
 public interface MovieRepository extends CrudRepository<Movie, Long> {
 
+    List<Movie> findAll();
+
     List<Movie> findByTitle(String title);
 
-    List<Movie> findAll();
+    List<Movie> findByTitleIn(List<String> titles);
 }

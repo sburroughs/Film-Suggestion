@@ -1,24 +1,27 @@
 package moviesuggestion.databank.model.movie;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
- * Created by Sburroughs on 9/5/2016.
+ * Created by Sburroughs on 9/28/2016.
  */
 @Entity
 public class Genre {
 
-    private long id;
-    private String name;
-    private Movie movie;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() {
+    private Long id;
+    private String name;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "genres")
+    private Set<Movie> movies;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -30,13 +33,11 @@ public class Genre {
         this.name = name;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "movie_id")
-    public Movie getMovie() {
-        return movie;
+    public Set<Movie> getMovies() {
+        return movies;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+    public void setMovies(Set<Movie> movies) {
+        this.movies = movies;
     }
 }

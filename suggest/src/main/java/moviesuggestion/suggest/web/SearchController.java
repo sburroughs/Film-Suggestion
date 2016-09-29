@@ -18,6 +18,8 @@ public class SearchController {
     @Autowired
     private SearchService searchService;
 
+    
+    //TODO: try removing CrossOrigin and // FIXME: 9/28/2016
     @CrossOrigin
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody

@@ -12,6 +12,4 @@ public interface UpdateImportProvider<T extends MovieContent> extends MovieConte
 
     T update(Movie original);
 
-    List<T> update(List<Movie> originals);
-
 }

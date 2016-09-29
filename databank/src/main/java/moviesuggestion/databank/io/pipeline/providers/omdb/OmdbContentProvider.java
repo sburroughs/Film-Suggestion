@@ -27,10 +27,6 @@ public class OmdbContentProvider implements UpdateImportProvider<OmdbMovie> {
         this.restTemplate = restTemplate;
     }
 
-    public List<OmdbMovie> getAll() {
-        throw new UnsupportedOperationException("Not currently implemented");
-    }
-
     @Override
     public OmdbMovie update(Movie original) {
 
@@ -48,20 +44,5 @@ public class OmdbContentProvider implements UpdateImportProvider<OmdbMovie> {
         return source;
 
     }
-
-    @Override
-    public List<OmdbMovie> update(List<Movie> original) {
-
-        List<OmdbMovie> movies = new ArrayList<>();
-
-        for (Movie movie : original) {
-            OmdbMovie omdb = update(movie);
-            movies.add(omdb);
-        }
-
-        return movies;
-
-    }
-
 
 }

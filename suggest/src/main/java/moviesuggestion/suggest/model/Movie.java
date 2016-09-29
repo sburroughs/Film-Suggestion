@@ -20,6 +20,7 @@ public class Movie{
     private int runtime;
 
 //    private String poster;
+
 //    @OneToMany(mappedBy = "movie")
 //    private List<Genre> genres;
 //    private List<Cast> cast;
