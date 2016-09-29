@@ -1,13 +1,11 @@
 package moviesuggestion.suggest.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
-public class Movie{
+public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,20 +13,30 @@ public class Movie{
 
     private String title;
     private Date releaseDate;
-    private String plot;
     private MPAA rated;
     private int runtime;
 
-//    private String poster;
+    @Column(columnDefinition = "LONGTEXT")
+    private String plot;
 
-//    @OneToMany(mappedBy = "movie")
-//    private List<Genre> genres;
-//    private List<Cast> cast;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "movie_genre",
+            joinColumns = {@JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "GENRE_ID", nullable = false, updatable = false)})
+    private Set<Genre> genres;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "movie_film_crew",
+            joinColumns = {@JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "FILM_CREW_ID", nullable = false, updatable = false)})
+    private Set<FilmCrewMember> filmCrew;
+
+    //    private String poster;
 //    private List<Review> reviews;
 //    private List<Achievement> achievements;
 //    private FilmingMetadata metadata;
-//    private List<Tag> tags;
-//    private List<MediaStream> streams;
+//
+//    private List<FilmMedia> streams;
 
     public Long getId() {
         return id;
@@ -78,69 +86,21 @@ public class Movie{
         this.runtime = runtime;
     }
 
-//    public String getPoster() {
-//        return poster;
-//    }
-//
-//    public void setPoster(String poster) {
-//        this.poster = poster;
-//    }
+    public Set<Genre> getGenres() {
+        return genres;
+    }
 
-//    public List<Genre> getGenres() {
-//        return genres;
-//    }
-//
-//    public void setGenres(List<Genre> genres) {
-//        this.genres = genres;
-//    }
-//
-//    public List<Cast> getCast() {
-//        return cast;
-//    }
-//
-//    public void setCast(List<Cast> cast) {
-//        this.cast = cast;
-//    }
-//
-//    public List<Review> getReviews() {
-//        return reviews;
-//    }
-//
-//    public void setReviews(List<Review> reviews) {
-//        this.reviews = reviews;
-//    }
-//
-//    public List<Achievement> getAchievements() {
-//        return achievements;
-//    }
-//
-//    public void setAchievements(List<Achievement> achievements) {
-//        this.achievements = achievements;
-//    }
-//
-//    public FilmingMetadata getMetadata() {
-//        return metadata;
-//    }
-//
-//    public void setMetadata(FilmingMetadata metadata) {
-//        this.metadata = metadata;
-//    }
-//
-//    public List<Tag> getTags() {
-//        return tags;
-//    }
-//
-//    public void setTags(List<Tag> tags) {
-//        this.tags = tags;
-//    }
-//
-//    public List<MediaStream> getStreams() {
-//        return streams;
-//    }
-//
-//    public void setStreams(List<MediaStream> streams) {
-//        this.streams = streams;
-//    }
+    public void setGenres(Set<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public Set<FilmCrewMember> getFilmCrew() {
+        return filmCrew;
+    }
+
+    public void setFilmCrew(Set<FilmCrewMember> filmCrew) {
+        this.filmCrew = filmCrew;
+    }
 }
 
 

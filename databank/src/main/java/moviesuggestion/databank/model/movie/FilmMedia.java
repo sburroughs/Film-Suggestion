@@ -5,7 +5,8 @@ import java.net.URL;
 /**
  * Created by Sburroughs on 9/3/2016.
  */
-public class MediaStream {
+public class FilmMedia {
     private String provider;
-    private URL url;
+    private String type;
+    private String url;
 }

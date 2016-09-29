@@ -38,7 +38,7 @@ public class Movie implements MovieContent {
 //    private List<Achievement> achievements;
 //    private FilmingMetadata metadata;
 //
-//    private List<MediaStream> streams;
+//    private List<FilmMedia> streams;
 
     public Long getId() {
         return id;
