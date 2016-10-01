@@ -1,4 +1,6 @@
-package moviesuggestion.suggest.model;
+package moviesuggestion.suggest.model.movie;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,6 +16,7 @@ public class Genre {
     private Long id;
     private String name;
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "genres")
     private Set<Movie> movies;
 

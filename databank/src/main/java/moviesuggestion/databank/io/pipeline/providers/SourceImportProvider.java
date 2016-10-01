@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface SourceImportProvider<T extends MovieContent> extends MovieContentProvider<T> {
 
-    List<T> getAll() throws OhGodWhyException;
+    List<T> getAll();
 
 }

@@ -37,7 +37,7 @@ public class GroupLensCsvProvider implements SourceImportProvider<GroupLensMovie
     }
 
     @Override
-    public List<GroupLensMovie> getAll() throws OhGodWhyException {
+    public List<GroupLensMovie> getAll() {
 
         List<GroupLensMovie> contents = new ArrayList<>();
 
@@ -62,7 +62,7 @@ public class GroupLensCsvProvider implements SourceImportProvider<GroupLensMovie
 
                     contents.add(movie);
 
-                } catch(Exception e){
+                } catch (Exception e) {
                     log.error("Unable to parse record", e);
                 }
 
@@ -85,7 +85,7 @@ public class GroupLensCsvProvider implements SourceImportProvider<GroupLensMovie
      */
     private String parseTitle(String titleDateString) {
 //        String title = titleDateString.substring(0, titleDateString.indexOf(DATE_REGEX));
-        String title = titleDateString.substring(0, titleDateString.length()-7);
+        String title = titleDateString.substring(0, titleDateString.length() - 7);
         return title;
     }
 
@@ -113,7 +113,7 @@ public class GroupLensCsvProvider implements SourceImportProvider<GroupLensMovie
         String formatted = original.trim();
         int length = formatted.length();
 
-        int year = Integer.parseInt(formatted.substring(length-5, length-1));
+        int year = Integer.parseInt(formatted.substring(length - 5, length - 1));
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);

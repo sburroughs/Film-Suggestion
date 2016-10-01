@@ -1,10 +1,9 @@
 package moviesuggestion.suggest.service;
 
 
-import moviesuggestion.suggest.model.Movie;
-import moviesuggestion.suggest.model.Tag;
+import moviesuggestion.suggest.model.movie.Movie;
+import moviesuggestion.suggest.model.search.SearchRequest;
 import moviesuggestion.suggest.repository.MovieRepository;
-import org.apache.solr.client.solrj.SolrQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

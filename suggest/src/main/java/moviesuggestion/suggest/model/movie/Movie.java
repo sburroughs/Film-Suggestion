@@ -1,4 +1,6 @@
-package moviesuggestion.suggest.model;
+package moviesuggestion.suggest.model.movie;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,23 +21,23 @@ public class Movie {
     @Column(columnDefinition = "LONGTEXT")
     private String plot;
 
+    @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "movie_genre",
             joinColumns = {@JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "GENRE_ID", nullable = false, updatable = false)})
     private Set<Genre> genres;
 
+    @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "movie_film_crew",
             joinColumns = {@JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "FILM_CREW_ID", nullable = false, updatable = false)})
     private Set<FilmCrewMember> filmCrew;
 
-    //    private String poster;
 //    private List<Review> reviews;
 //    private List<Achievement> achievements;
 //    private FilmingMetadata metadata;
-//
 //    private List<FilmMedia> streams;
 
     public Long getId() {

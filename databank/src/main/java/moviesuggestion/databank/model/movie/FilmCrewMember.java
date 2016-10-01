@@ -1,5 +1,7 @@
 package moviesuggestion.databank.model.movie;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ public class FilmCrewMember {
 
     private String role;
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "filmCrew")
     private Set<Movie> movies;
 

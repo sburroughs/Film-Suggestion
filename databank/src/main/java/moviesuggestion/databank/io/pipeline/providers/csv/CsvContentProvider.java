@@ -29,7 +29,7 @@ public class CsvContentProvider implements SourceImportProvider {
     }
 
     @Override
-    public List<MovieContent> getAll() throws OhGodWhyException {
+    public List<MovieContent> getAll() {
 
         List<MovieContent> contents = new ArrayList<>();
 

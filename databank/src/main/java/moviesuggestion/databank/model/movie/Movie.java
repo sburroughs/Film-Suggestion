@@ -1,5 +1,6 @@
 package moviesuggestion.databank.model.movie;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import moviesuggestion.databank.model.MovieContent;
 
 import javax.persistence.*;
@@ -21,19 +22,20 @@ public class Movie implements MovieContent {
     @Column(columnDefinition = "LONGTEXT")
     private String plot;
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "movie_genre",
             joinColumns = {@JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "GENRE_ID", nullable = false, updatable = false)})
     private Set<Genre> genres;
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "movie_film_crew",
             joinColumns = {@JoinColumn(name = "MOVIE_ID", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "FILM_CREW_ID", nullable = false, updatable = false)})
     private Set<FilmCrewMember> filmCrew;
 
-    //    private String poster;
 //    private List<Review> reviews;
 //    private List<Achievement> achievements;
 //    private FilmingMetadata metadata;

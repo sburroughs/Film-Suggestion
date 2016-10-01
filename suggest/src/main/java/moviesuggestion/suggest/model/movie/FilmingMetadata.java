@@ -1,4 +1,4 @@
-package moviesuggestion.suggest.model;
+package moviesuggestion.suggest.model.movie;
 
 import java.util.List;
 

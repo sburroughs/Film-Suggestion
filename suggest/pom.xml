@@ -14,6 +14,8 @@
         <version>1.4.0.RELEASE</version>
     </parent>
 
+    <packaging>war</packaging>
+
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -24,12 +26,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
@@ -42,18 +47,78 @@
             <artifactId>solr-solrj</artifactId>
         </dependency>
 
-
     </dependencies>
 
 
-
     <build>
+
         <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>exec-npm-install</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <workingDirectory>${project.basedir}/src/main/resources/static/</workingDirectory>
+                            <executable>npm.cmd</executable>
+                            <arguments>
+                                <argument>install</argument>
+                            </arguments>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>exec-npm-run-tsc</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <workingDirectory>${project.basedir}/src/main/resources/static/</workingDirectory>
+                            <executable>npm.cmd</executable>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>tsc</argument>
+                            </arguments>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>exec-npm-prune-dev</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <workingDirectory>${project.basedir}/src/main/resources/static/</workingDirectory>
+                            <executable>npm.cmd</executable>
+                            <arguments>
+                                <argument>prune</argument>
+                                <argument>--production</argument>
+                            </arguments>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.4.1.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
+
     </build>
 
 </project>

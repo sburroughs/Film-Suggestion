@@ -1,4 +1,4 @@
-package moviesuggestion.suggest.service;
+package moviesuggestion.suggest.model.search;
 
 import java.util.List;
 
@@ -15,6 +15,13 @@ public class SearchRequest {
 
     public List<String> getLikes() {
         return likes;
+    }
+
+    @Override
+    public String toString() {
+        return "SearchRequest{" +
+                "likes=" + likes +
+                '}';
     }
 }
 

@@ -1,6 +1,6 @@
 package moviesuggestion.suggest.repository;
 
-import moviesuggestion.suggest.model.Movie;
+import moviesuggestion.suggest.model.movie.Movie;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
