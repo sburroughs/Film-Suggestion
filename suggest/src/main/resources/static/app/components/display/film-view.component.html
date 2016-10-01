@@ -1,14 +1,21 @@
-<div *ngIf="film" class="panel panel-default">
-    <h4 class="panel-heading">
-        <a (click)="addTag()" href="javascript:void(0)">{{film.title}} - {{film.releaseDate |date}}</a>
-    </h4>
-    <div class="panel-body">
-        <p><strong>Rated:</strong> {{film.rated}}</p>
-        <p><strong>Runtime:</strong> {{film.runtime}}</p>
-
-        <img src="/img/sample.png" class="img-thumbnail col-sm-2" width="128" height="128">
-        <p class="col-sm-4">{{film.plot}}</p>
-        <tag-view class="col-sm-6" [tags]="film.tags"></tag-view>
+<div *ngIf="film" class="row">
+    <div class="card">
+        <div class="card-header">
+            <span>
+                <h3>
+                    <a (click)="addTag()" href="javascript:void(0)">{{film.title}} - {{film.releaseDate | date:"yyyy"}}</a>
+                </h3>
+            </span>
+            <span class="text-xs-right">
+                <p class="card-subtitle text-muted"><strong>Rated:</strong> {{film.rated}}</p>
+                <p class="card-subtitle text-muted"><strong>Runtime:</strong> {{film.runtime}}</p>
+            </span>
+        </div>
+        <div class="card-block">
+            <img src="/img/sample.png" class="col-sm-2" width="128" height="128">
+            <p class="col-sm-6">{{film.plot}}</p>
+            <tag-view class="col-sm-6" [tags]="film.tags"></tag-view>
+        </div>
     </div>
 </div>
 

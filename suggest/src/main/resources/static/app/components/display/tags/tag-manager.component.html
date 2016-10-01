@@ -1,13 +1,13 @@
 <div *ngIf="selectedTags.length > 0">
-    <div class="well">
+    <div class="card">
         <div class="row">
             <ul>
-                <li *ngFor="let tag of selectedTags" class="col-sm-2 list-unstyled">
-                    <div class="panel">
-                        <button (click)="removeTag(tag)" class="close pull-right"><span
+                <li *ngFor="let tag of selectedTags" class="list-unstyled">
+                    <span class="tag tag-default">
+                        {{tag.display}}
+                        <button (click)="removeTag(tag)" class="close p-l-2"><span
                                 aria-hidden="true">&times;</span></button>
-                        <p class="panel-body">{{tag.display}}</p>
-                    </div>
+                    </span>
                 </li>
             </ul>
         </div>
