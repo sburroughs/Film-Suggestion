@@ -85,7 +85,13 @@ public class GroupLensCsvProvider implements SourceImportProvider<GroupLensMovie
      */
     private String parseTitle(String titleDateString) {
 //        String title = titleDateString.substring(0, titleDateString.indexOf(DATE_REGEX));
-        String title = titleDateString.substring(0, titleDateString.length() - 7);
+        int titleLength = titleDateString.length();
+
+        String title = "N/A";
+        if (titleLength >= 7) {
+            title = titleDateString.substring(0, titleDateString.length() - 7);
+        }
+
         return title;
     }
 
@@ -110,14 +116,24 @@ public class GroupLensCsvProvider implements SourceImportProvider<GroupLensMovie
      */
     private Date parseRelease(String original) {
 //        String dateString = original.substring(original.indexOf(DATE_REGEX));
-        String formatted = original.trim();
-        int length = formatted.length();
 
-        int year = Integer.parseInt(formatted.substring(length - 5, length - 1));
+        Date date = null;
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        return calendar.getTime();
+        try {
+            String formatted = original.trim();
+            int length = formatted.length();
+
+            int year = Integer.parseInt(formatted.substring(length - 5, length - 1));
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, year);
+
+            date = calendar.getTime();
+        }
+        catch(NumberFormatException e){
+            log.error("Unable to parse release date", e);
+        }
+        return date;
     }
 
 }
