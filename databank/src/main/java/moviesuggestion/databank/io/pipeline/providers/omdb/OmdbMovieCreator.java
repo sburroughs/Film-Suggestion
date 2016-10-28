@@ -1,5 +1,6 @@
-package moviesuggestion.databank.io.pipeline.converter;
+package moviesuggestion.databank.io.pipeline.providers.omdb;
 
+import moviesuggestion.databank.io.pipeline.providers.MovieCreator;
 import moviesuggestion.databank.model.movie.*;
 import moviesuggestion.databank.model.omdb.OmdbMovie;
 
@@ -7,26 +8,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public final class OmdbMovieConverter implements MovieConverter<OmdbMovie> {
+public final class OmdbMovieCreator implements MovieCreator<OmdbMovie> {
 
     @Override
-    public Movie convert(OmdbMovie update, Movie source) {
+    public Movie create(OmdbMovie update) {
 
-        Long id = source.getId();
+        Movie source = new Movie();
 
         source.setTitle(update.getTitle());
         source.setReleaseDate(update.getReleaseDate());
         source.setRated(parseRating(update.getRated()));
         source.setRuntime(parseRuntime(update.getRuntime()));
         source.setPlot(update.getPlot());
-        source.setGenres(parseGenre(source, update.getGenre()));
-        source.setFilmCrew(parseFilmCrew(source, update.getActors(), update.getDirector(), update.getWriter()));
+        source.setGenres(parseGenre(update.getGenre()));
+        source.setFilmCrew(parseFilmCrew( update.getActors(), update.getDirector(), update.getWriter()));
 
         return source;
 
     }
 
-    private Set<FilmCrewMember> parseFilmCrew(Movie source, String actorString, String directorString, String writer) {
+    private Set<FilmCrewMember> parseFilmCrew(String actorString, String directorString, String writer) {
 
         Set<FilmCrewMember> filmCrew = new HashSet<>();
 
@@ -95,11 +96,10 @@ public final class OmdbMovieConverter implements MovieConverter<OmdbMovie> {
     }
 
     /**
-     * @param movie
      * @param original
      * @return
      */
-    private Set<Genre> parseGenre(Movie movie, String original) {
+    private Set<Genre> parseGenre(String original) {
 
         Set<Genre> genres = new HashSet<>();
 

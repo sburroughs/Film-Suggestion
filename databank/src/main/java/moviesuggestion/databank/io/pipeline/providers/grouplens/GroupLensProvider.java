@@ -4,9 +4,7 @@ package moviesuggestion.databank.io.pipeline.providers.grouplens;
  * Created by Sburroughs on 9/18/2016.
  */
 
-import moviesuggestion.databank.io.pipeline.MovieUpdatePipeline;
 import moviesuggestion.databank.exception.OhGodWhyException;
-import moviesuggestion.databank.io.pipeline.providers.SourceImportProvider;
 import moviesuggestion.databank.model.grouplens.GroupLensMovie;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -20,9 +18,9 @@ import java.util.*;
 /**
  * Created by Sburroughs on 9/14/2016.
  */
-public class GroupLensCsvProvider implements SourceImportProvider<GroupLensMovie> {
+public class GroupLensProvider  {
 
-    private final static Logger log = LoggerFactory.getLogger(MovieUpdatePipeline.class);
+    private final static Logger log = LoggerFactory.getLogger(GroupLensProvider.class);
 
     //TODO: broken regex. Fix and use
     private final String DATE_REGEX = "/\\((\\d{4})\\)$/g";
@@ -32,11 +30,10 @@ public class GroupLensCsvProvider implements SourceImportProvider<GroupLensMovie
     /**
      * @param reader - required for accessing csv data. not null
      */
-    public GroupLensCsvProvider(Reader reader) {
+    public GroupLensProvider(Reader reader) {
         this.reader = reader;
     }
 
-    @Override
     public List<GroupLensMovie> getAll() {
 
         List<GroupLensMovie> contents = new ArrayList<>();

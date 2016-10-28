@@ -21,15 +21,12 @@ public class MovieMatcher {
     }
 
     /**
-     * Matches incoming content with
+     * Matches Content to existing content in db. Creates new Movie entry otherwise.
      *
-     * @param source
+     * @param title
      * @return
      */
-    public Movie match(MovieContent source) {
-
-        String title = source.getTitle();
-        Date releaseDate = source.getReleaseDate();
+    public Movie match(String title) {
 
         List<Movie> results = movieRepository.findByTitle(title);
         if (results.size() != 1) {
@@ -40,7 +37,6 @@ public class MovieMatcher {
 
             Movie movie = new Movie();
             movie.setTitle(title);
-            movie.setReleaseDate(releaseDate);
 
             Movie saved = movieRepository.save(movie);
             results.add(saved);

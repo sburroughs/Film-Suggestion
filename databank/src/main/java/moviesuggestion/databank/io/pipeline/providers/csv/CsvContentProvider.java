@@ -1,7 +1,6 @@
 package moviesuggestion.databank.io.pipeline.providers.csv;
 
 import moviesuggestion.databank.exception.OhGodWhyException;
-import moviesuggestion.databank.io.pipeline.providers.SourceImportProvider;
 import moviesuggestion.databank.model.MovieContent;
 import moviesuggestion.databank.model.movie.MPAA;
 import moviesuggestion.databank.model.movie.Movie;
@@ -17,7 +16,7 @@ import java.util.List;
 /**
  * Created by Sburroughs on 9/14/2016.
  */
-public class CsvContentProvider implements SourceImportProvider {
+public class CsvContentProvider {
 
     private final Reader reader;
 
@@ -28,7 +27,6 @@ public class CsvContentProvider implements SourceImportProvider {
         this.reader = reader;
     }
 
-    @Override
     public List<MovieContent> getAll() {
 
         List<MovieContent> contents = new ArrayList<>();

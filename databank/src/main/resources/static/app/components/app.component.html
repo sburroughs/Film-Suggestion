@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="jumbotron">
+        <h1>Film Suggestion Application</h1>
+        <h2>Data Management</h2>
+    </div>
+
+    <div>
+        <h3>Recently Added</h3>
+        #TODO
+    </div>
+
+    <br><br><br>
+
+    <div>
+        <h3>Find Title</h3>
+        <div>
+            <input type="text" [(ngModel)]="search" placeholder="search a title..."/>
+            <button (click)="searchTitle()" class="button">Search</button>
+        </div>
+    </div>
+
+    <br><br><br>
+
+    <div>
+        <h3>Title Management</h3>
+        <div>
+            <h4>Add Title</h4>
+            <input type="text" [(ngModel)]="title"/>
+            <button (click)="addTitle()" class="button">Submit</button>
+        </div>
+
+
+    </div>
+
+
+</div>
+

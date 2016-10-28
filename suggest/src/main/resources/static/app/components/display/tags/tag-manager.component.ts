@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Tag} from "../../model/tag";
 import {TagManagerService} from "../tags/tag-manager.service"
 
@@ -8,6 +8,8 @@ import {TagManagerService} from "../tags/tag-manager.service"
 })
 export class TagManagerComponent implements OnInit{
 
+    @Output() tagSelected = new EventEmitter();
+
     selectedTags:Tag[];
 
     constructor(private tagManagerService:TagManagerService) {
@@ -15,7 +17,13 @@ export class TagManagerComponent implements OnInit{
 
     removeTag(tag:Tag):void {
         this.tagManagerService.removeLike(tag);
+        console.log("removing tag");
+        this.emit();
     };
+
+    emit(){
+        this.tagSelected.emit(this.selectedTags);
+    }
 
     ngOnInit(){
         this.selectedTags = this.tagManagerService.like;

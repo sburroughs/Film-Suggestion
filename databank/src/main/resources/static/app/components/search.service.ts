@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers, Response, URLSearchParams} from '@angular/http';
 import 'rxjs/Rx'
-import {Film} from "../model/film";
 import {Observable} from 'rxjs/Observable';
-import {Tag} from "../model/tag";
+
+
+const TITLE_ENDPOINT = "http://localhost:8080/movie/";
+const SEARCH_ENDPOINT = "http://localhost:8080/search";
 
 
 @Injectable()
 export class SearchService {
-
-    endpoint_url: string = "http://localhost:8080/search";
 
     private headers: Headers;
 
@@ -21,24 +21,28 @@ export class SearchService {
     }
 
 
-    // public search(tagManager: TagManager): Observable<Film[]> {
-    public search(likes: Tag[]): Observable<Film[]> {
+    public titleImport(title: string) {
 
-        var tags = likes.map(function (tag) {
-            return tag['display'];
-        });
-
-        console.log(tags);
-
-        let params: URLSearchParams = new URLSearchParams();
-        params.set('likes', tags.toString());
-
-        return this._http.get(this.endpoint_url, {'search': params})
-            .map((response: Response) => <Film[]>response.json())
+        return this._http.post(TITLE_ENDPOINT, title)
+            .map((response: Response) => response.json())
             .catch((error)=> {
                 console.error(error);
                 return Observable.throw(error.json().error || 'Server error');
             });
     }
+
+    public search(title: string) {
+
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('title', title);
+
+        return this._http.get(SEARCH_ENDPOINT, {'search': params})
+            .map((response: Response) => response.json())
+            .catch((error)=> {
+                console.error(error);
+                return Observable.throw(error.json().error || 'Server error');
+            });
+    }
+
 
 }

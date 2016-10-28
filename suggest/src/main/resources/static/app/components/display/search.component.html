@@ -1,9 +1,6 @@
-<div class="container">
-    <div class="row">
-        <div class="form-group">
-            <label>Search:</label>
-            <input type="text" name="query" [(ngModel)]="query" placeholder="Search something, bitch." required>
-            <button (click)="search()" class="btn btn-secondary">Search</button>
-        </div>
+<div class="row">
+    <div class="col-sm-6">
+        <input type="text" [(ngModel)]="query" placeholder="Search...">
+        <button (click)="search()" class="btn btn-secondary" type="button">Search</button>
     </div>
 </div>
