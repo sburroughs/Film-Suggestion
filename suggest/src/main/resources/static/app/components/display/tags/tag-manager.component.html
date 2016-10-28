@@ -1,8 +1,8 @@
 <div *ngIf="selectedTags.length > 0">
-    <div class="card">
-        <div class="row">
-            <ul>
-                <li *ngFor="let tag of selectedTags" class="list-unstyled">
+    <div class="row">
+        <div class="card">
+            <ul class="list-unstyled list-inline">
+                <li *ngFor="let tag of selectedTags" class="list-inline-item">
                     <span class="tag tag-default">
                         {{tag.display}}
                         <button (click)="removeTag(tag)" class="close p-l-2"><span
