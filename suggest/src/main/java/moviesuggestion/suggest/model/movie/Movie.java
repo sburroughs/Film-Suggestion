@@ -1,6 +1,7 @@
 package moviesuggestion.suggest.model.movie;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.apache.solr.client.solrj.beans.Field;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,17 +11,27 @@ import java.util.Set;
 public class Movie {
 
     @Id
+    @Field
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Field
     private String title;
+
+    @Field
     private Date releaseDate;
+
+    @Field
     private MPAA rated;
+
+    @Field
     private int runtime;
 
+    @Field
     @Column(columnDefinition = "LONGTEXT")
     private String plot;
 
+    @Field
     @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "movie_genre",
