@@ -7,6 +7,9 @@
     <groupId>moviesuggestion</groupId>
     <artifactId>suggest</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>..</module>
+    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -14,7 +17,7 @@
         <version>1.4.1.RELEASE</version>
     </parent>
 
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
 
     <properties>
         <java.version>1.8</java.version>

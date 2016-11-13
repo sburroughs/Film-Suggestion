@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="moviesuggestion" version="1.0">
+    <uniqueKey>id</uniqueKey>
+    <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+    <fieldType name="date" class="solr.TrieDateField" positionIncrementGap="0" precisionStep="0"/>
+    <fieldType name="double" class="solr.TrieDoubleField" positionIncrementGap="0" precisionStep="0"/>
+    <fieldType name="float" class="solr.TrieFloatField" positionIncrementGap="0" precisionStep="0"/>
+    <fieldType name="int" class="solr.TrieIntField" positionIncrementGap="0" precisionStep="0"/>
+    <fieldType name="long" class="solr.TrieLongField" positionIncrementGap="0" precisionStep="0"/>
+
+    <fieldType name="lowercase" class="solr.TextField" positionIncrementGap="100">
+        <analyzer>
+            <tokenizer class="solr.KeywordTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+    </fieldType>
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
+    <fieldType name="tdate" class="solr.TrieDateField" positionIncrementGap="0" precisionStep="6"/>
+
+    <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
+            <filter class="solr.SynonymFilterFactory" expand="true" ignoreCase="true" synonyms="synonyms.txt"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+    </fieldType>
+
+    <fieldType name="text_suggest" class="solr.TextField" positionIncrementGap="100">
+        <analyzer type="index">
+            <tokenizer class="solr.NGramTokenizerFactory" minGramSize="2" maxGramSize="10"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.EdgeNGramTokenizerFactory" minGramSize="2" maxGramSize="10"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+    </fieldType>
+
+    <field name="_version_" type="long" multiValued="false" indexed="true" stored="true"/>
+    <field name="genres" type="text_general" multiValued="true" indexed="true" stored="true"/>
+    <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
+    <field name="plot" type="text_general" indexed="true" stored="true"/>
+    <field name="rated" type="string" indexed="true" stored="true"/>
+    <field name="runtime" type="int" indexed="true" stored="true"/>
+    <field name="title" type="text_general" indexed="true" stored="true"/>
+    <field name="text" type="text_general" indexed="true" stored="true"/>
+
+    <field name="textSuggest" type="text_suggest" indexed="true" stored="false"/>
+
+    <copyField source="title"  dest="textSuggest"/>
+
+</schema>

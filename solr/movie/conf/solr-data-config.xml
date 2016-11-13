@@ -1,0 +1,18 @@
+<dataConfig>
+    <dataSource type="JdbcDataSource"
+                driver="com.mysql.jdbc.Driver"
+                url="jdbc:mysql://localhost/film_suggestion"
+                user="root"
+                password="password"/>
+
+	<document name="movies">
+		<entity name="movie" query="select ID, title, plot, rated, runtime, release_date from movie">
+			<entity name="movie_genre" query="select GENRE_ID, MOVIE_ID from movie_genre where movie_id='${movie.ID}'">
+				<entity name="genres" query="select name as genres from genre where id = '${movie_genre.GENRE_ID}'"></entity>
+			</entity>
+			<entity name="movie_film_crew" query="select FILM_CREW_ID, MOVIE_ID from movie_film_crew where movie_id='${movie.ID}'">
+				<entity name="film_crew" query="select first_name, last_name, role from film_crew where id = '${movie_film_crew.FILM_CREW_ID}'"></entity>
+			</entity>
+		</entity>
+	</document>
+</dataConfig>

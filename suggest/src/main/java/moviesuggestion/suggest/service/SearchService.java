@@ -28,8 +28,16 @@ public class SearchService {
 
     public List<Movie> search(SearchRequest searchRequest) {
 
-        List<String> likes = searchRequest.getLikes();
-        List<Movie> results = searchRepository.findByTitleIn(likes);
+        List<Movie> results = new ArrayList<>();
+
+        List<String> titles = searchRequest.getLikes();
+        results.addAll(searchRepository.findByTitleIn(titles));
+
+        if (results.size() > 0) {
+            Movie currentMovie = results.get(0);
+            MPAA rated = currentMovie.getRated();
+            results.addAll(searchRepository.findTop10ByRated(rated));
+        }
 
         return results;
 

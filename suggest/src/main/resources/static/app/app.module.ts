@@ -8,15 +8,16 @@ import {TagManagerComponent} from "./components/display/tags/tag-manager.compone
 import {SearchComponent} from "./components/display/search.component";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
+import {Ng2CompleterModule} from "ng2-completer";
 @NgModule({
-    imports: [BrowserModule, FormsModule, HttpModule],
+    imports: [BrowserModule, FormsModule, HttpModule, Ng2CompleterModule],
     declarations: [
         AppComponent,
         TagViewComponent,
         FilmViewComponent,
         SearchComponent,
         TagManagerComponent,
-        FilmsDisplayComponent
+        FilmsDisplayComponent,
     ],
     bootstrap: [AppComponent]
 })

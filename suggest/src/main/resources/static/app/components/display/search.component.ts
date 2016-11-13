@@ -1,8 +1,11 @@
 import {Component, Output, EventEmitter} from '@angular/core';
 import {SearchService} from './search.service';
+import { CompleterService, CompleterData } from 'ng2-completer';
 import {Tag} from '../model/tag';
 
 import {TagManagerService} from "./tags/tag-manager.service";
+
+const AUTOCOMPLETE_ENDPOINT = "/autocomplete/";
 
 @Component({
     selector: 'search',
@@ -11,12 +14,13 @@ import {TagManagerService} from "./tags/tag-manager.service";
 })
 export class SearchComponent {
 
-    query: string;
-
     @Output() filmUpdates = new EventEmitter();
 
-    constructor(private service: SearchService, private tagManager: TagManagerService) {
+    private query: string;
+    private dataService: CompleterData;
 
+    constructor(private service: SearchService, private tagManager: TagManagerService, private completerService: CompleterService) {
+        this.dataService = completerService.remote(AUTOCOMPLETE_ENDPOINT, 'name', 'name').descriptionField("source");
     }
 
     public search() {

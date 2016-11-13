@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface SearchRepository extends SolrCrudRepository<Movie, String> {
 
-    List<Movie> findByGenresAndRated(String genre, MPAA rated);
+    List<Movie> findTop10ByRated(MPAA rated);
 
     List<Movie> findByTitleIn(List<String> likes);
 }
