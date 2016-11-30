@@ -1,7 +1,5 @@
 package moviesuggestion.suggest.service;
 
-
-import moviesuggestion.suggest.model.movie.Genre;
 import moviesuggestion.suggest.model.movie.MPAA;
 import moviesuggestion.suggest.model.movie.Movie;
 import moviesuggestion.suggest.model.search.SearchRequest;

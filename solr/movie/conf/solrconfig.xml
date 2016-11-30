@@ -22,15 +22,10 @@
 -->
 <config>
 
-    <luceneMatchVersion>6.2.0</luceneMatchVersion>
+    <luceneMatchVersion>6.3.0</luceneMatchVersion>
 
     <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-dataimporthandler-.*\.jar"/>
-    <lib dir="${solr.install.dir:../../../..}/contrib/extraction/lib" regex=".*\.jar"/>
-    <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-cell-\d.*\.jar"/>
-    <lib dir="${solr.install.dir:../../../..}/contrib/langid/lib/" regex=".*\.jar"/>
-    <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-langid-\d.*\.jar"/>
-    <lib dir="${solr.install.dir:../../../..}/contrib/velocity/lib" regex=".*\.jar"/>
-    <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-velocity-\d.*\.jar"/>
+    <lib dir="${solr.install.dir:../../../..}/dist/" regex="mysql-connector-java-5.1.40-bin.jar" />
 
     <dataDir>${solr.data.dir:}</dataDir>
 
@@ -42,12 +37,12 @@
         <str name="solr.hdfs.blockcache.global">${solr.hdfs.blockcache.global:true}</str>
     </directoryFactory>
 
-    <codecFactory class="solr.SchemaCodecFactory"/>
+    <schemaFactory class="ClassicIndexSchemaFactory"/>
 
     <indexConfig>
         <lockType>${solr.lock.type:native}</lockType>
-        <infoStream>true</infoStream>
     </indexConfig>
+
 
     <updateHandler class="solr.DirectUpdateHandler2">
         <updateLog>
@@ -146,21 +141,9 @@
         </lst>
     </requestHandler>
 
-    <searchComponent name="suggest" class="solr.SuggestComponent">
-        <lst name="suggester">
-            <str name="name">mySuggester</str>
-            <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
-            <str name="indexPath">suggester_infix_dir</str>
-
-            <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-            <str name="field">textSuggest</str>
-            <str name="suggestAnalyzerFieldType">string</str>
-        </lst>
-    </searchComponent>
-
     <requestHandler name="/suggest" class="solr.SearchHandler" startup="lazy">
         <lst name="defaults">
-            <str name="suggest.dictionary">mySuggester</str>
+            <str name="suggest.dictionary">suggest_main</str>
             <str name="suggest">true</str>
             <str name="suggest.count">10</str>
         </lst>
@@ -169,9 +152,18 @@
         </arr>
     </requestHandler>
 
-    <queryResponseWriter name="json" class="solr.JSONResponseWriter">
-        <str name="content-type">text/plain; charset=UTF-8</str>
-    </queryResponseWriter>
+    <searchComponent name="suggest" class="solr.SuggestComponent">
+        <lst name="suggester">
+            <str name="name">suggest_main</str>
+            <str name="lookupImpl">BlendedInfixLookupFactory</str>
 
+            <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+            <str name="field">textSuggest</str>
+            <str name="suggestAnalyzerFieldType">text_suggest</str>
+            <str name="buildOnStartup">true</str>
+        </lst>
+    </searchComponent>
+
+    <queryResponseWriter name="json" class="solr.JSONResponseWriter"></queryResponseWriter>
 
 </config>

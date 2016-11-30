@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-sm-6">
         <ng2-completer [(ngModel)]="query" [dataService]="dataService" [minSearchLength]="2" placeholder="Search..."></ng2-completer>
+        <input type = "search" [(ngModel)]="query"  placeholder="REMOVE ME">
         <button (click)="search()" class="btn btn-secondary" type="button">Search</button>
     </div>
 </div>

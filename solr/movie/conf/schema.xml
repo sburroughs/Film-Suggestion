@@ -7,16 +7,8 @@
     <fieldType name="float" class="solr.TrieFloatField" positionIncrementGap="0" precisionStep="0"/>
     <fieldType name="int" class="solr.TrieIntField" positionIncrementGap="0" precisionStep="0"/>
     <fieldType name="long" class="solr.TrieLongField" positionIncrementGap="0" precisionStep="0"/>
-
-    <fieldType name="lowercase" class="solr.TextField" positionIncrementGap="100">
-        <analyzer>
-            <tokenizer class="solr.KeywordTokenizerFactory"/>
-            <filter class="solr.LowerCaseFilterFactory"/>
-        </analyzer>
-    </fieldType>
     <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
     <fieldType name="tdate" class="solr.TrieDateField" positionIncrementGap="0" precisionStep="6"/>
-
     <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
         <analyzer type="index">
             <tokenizer class="solr.StandardTokenizerFactory"/>
@@ -31,13 +23,12 @@
         </analyzer>
     </fieldType>
 
+    <copyField source="title" dest="textSuggest"/>
+
     <fieldType name="text_suggest" class="solr.TextField" positionIncrementGap="100">
-        <analyzer type="index">
-            <tokenizer class="solr.NGramTokenizerFactory" minGramSize="2" maxGramSize="10"/>
-            <filter class="solr.LowerCaseFilterFactory"/>
-        </analyzer>
-        <analyzer type="query">
-            <tokenizer class="solr.EdgeNGramTokenizerFactory" minGramSize="2" maxGramSize="10"/>
+        <analyzer>
+            <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="[^a-zA-Z0-9]" replacement=" " />
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
             <filter class="solr.LowerCaseFilterFactory"/>
         </analyzer>
     </fieldType>
@@ -51,8 +42,7 @@
     <field name="title" type="text_general" indexed="true" stored="true"/>
     <field name="text" type="text_general" indexed="true" stored="true"/>
 
-    <field name="textSuggest" type="text_suggest" indexed="true" stored="false"/>
+    <field name="textSuggest" type="text_suggest" indexed="false" stored="true"/>
 
-    <copyField source="title"  dest="textSuggest"/>
 
 </schema>

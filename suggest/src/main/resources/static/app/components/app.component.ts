@@ -1,12 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {Film} from './model/film';
+import {Component, OnInit} from "@angular/core";
+import {Film} from "./model/film";
 import {TagManagerService} from "./display/tags/tag-manager.service";
 import {SearchService} from "./display/search.service";
+import {TagDiscoveryService} from "./display/tags/tag-discovery.service";
 
 @Component({
     selector: 'app',
     templateUrl: 'app/components/app.component.html',
-    providers: [TagManagerService, SearchService]
+    providers: [TagManagerService, SearchService, TagDiscoveryService]
 })
 export class AppComponent implements OnInit {
 

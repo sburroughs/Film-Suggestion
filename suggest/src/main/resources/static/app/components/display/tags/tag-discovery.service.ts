@@ -1,15 +1,14 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers, Response, URLSearchParams} from '@angular/http';
+import {Tag} from "../../model/tag";
+import {Headers, Http, URLSearchParams, Response} from "@angular/http";
 import 'rxjs/Rx'
-import {Film} from "../model/film";
 import {Observable} from 'rxjs/Observable';
-import {Tag} from "../model/tag";
 
 
 @Injectable()
-export class SearchService {
+export class TagDiscoveryService {
 
-    endpoint_url: string = "http://localhost:8080/search";
+    endpoint_url: string = "http://localhost:8080/discover";
 
     private headers: Headers;
 
@@ -21,19 +20,13 @@ export class SearchService {
     }
 
 
-    public search(likes: Tag[]): Observable<Film[]> {
-
-        var tags = likes.map(function (tag) {
-            return tag['display'];
-        });
-
-        console.log(tags);
+    public discover(): Observable<Tag[]> {
 
         let params: URLSearchParams = new URLSearchParams();
-        params.set('likes', tags.toString());
+        params.set('type', "default");
 
         return this._http.get(this.endpoint_url, {'search': params})
-            .map((response: Response) => <Film[]>response.json())
+            .map((response: Response) => <Tag[]>response.json())
             .catch((error)=> {
                 console.error(error);
                 return Observable.throw(error.json().error || 'Server error');

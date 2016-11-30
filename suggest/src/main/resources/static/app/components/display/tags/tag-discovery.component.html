@@ -1,0 +1,15 @@
+<div class="jumbotron">
+    Tag Discovery
+    <div *ngIf="tags">
+        <div class="row">
+            <ul class="list-inline">
+                <li *ngFor="let tag of tags" class="list-inline-item">
+                    <button type="button" class="btn btn-block" (click)="submitTag(tag)">
+                        {{tag.display}}
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
