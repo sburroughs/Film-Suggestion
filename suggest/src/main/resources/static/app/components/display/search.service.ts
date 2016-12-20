@@ -1,19 +1,19 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers, Response, URLSearchParams} from '@angular/http';
+import {Location} from '@angular/common';
 import 'rxjs/Rx'
 import {Film} from "../model/film";
 import {Observable} from 'rxjs/Observable';
 import {Tag} from "../model/tag";
 
-
 @Injectable()
 export class SearchService {
 
-    endpoint_url: string = "http://localhost:8080/search";
+    endpoint_url: string = "/search";
 
     private headers: Headers;
 
-    constructor(private _http: Http) {
+    constructor(private _http: Http, private location: Location) {
 
         this.headers = new Headers();
         this.headers.append('Content-Type', 'application/json');
@@ -27,14 +27,12 @@ export class SearchService {
             return tag['display'];
         });
 
-        console.log(tags);
-
         let params: URLSearchParams = new URLSearchParams();
         params.set('likes', tags.toString());
 
-        return this._http.get(this.endpoint_url, {'search': params})
+        return this._http.get(this.location.prepareExternalUrl(this.endpoint_url), {'search': params})
             .map((response: Response) => <Film[]>response.json())
-            .catch((error)=> {
+            .catch((error) => {
                 console.error(error);
                 return Observable.throw(error.json().error || 'Server error');
             });

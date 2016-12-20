@@ -4,8 +4,8 @@ import 'rxjs/Rx'
 import {Observable} from 'rxjs/Observable';
 
 
-const TITLE_ENDPOINT = "http://localhost:8080/movie/";
-const SEARCH_ENDPOINT = "http://localhost:8080/search";
+const TITLE_ENDPOINT = "/movie";
+const SEARCH_ENDPOINT = "/search";
 
 
 @Injectable()

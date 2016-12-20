@@ -1,5 +1,6 @@
 package moviesuggestion.suggest.service;
 
+import moviesuggestion.suggest.exception.AutoCompleteException;
 import moviesuggestion.suggest.model.AutocompleteSuggestion;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -31,7 +32,7 @@ public class AutocompleteService {
     @Autowired
     private SolrClient solrClient;
 
-    public List<AutocompleteSuggestion> suggest(String search) {
+    public List<AutocompleteSuggestion> suggest(String search) throws AutoCompleteException {
 
         List<AutocompleteSuggestion> suggestions = new ArrayList<>();
 
@@ -41,29 +42,43 @@ public class AutocompleteService {
 
         SuggesterResponse results = null;
         try {
-            QueryResponse yeah = solrClient.query(SOLR_CORE, query);
+            QueryResponse response = solrClient.query(SOLR_CORE, query);
+            results = response.getSuggesterResponse();
 
-            results = yeah.getSuggesterResponse();
-        } catch (SolrServerException | IOException e) {
-            e.printStackTrace();
-        }
-
-        if (results != null) {
-
-            List<String> terms = results.getSuggestedTerms().get(SUGGESTER_KEY);
-            for (String term : terms) {
-
-                AutocompleteSuggestion currentSuggestion = new AutocompleteSuggestion();
-                currentSuggestion.setSource("TITLE");
-                currentSuggestion.setName(term);
-
-                suggestions.add(currentSuggestion);
+            if (results == null) {
+                throw new IllegalStateException(String.format("Null response from search: %s", results));
             }
 
+        } catch (SolrServerException | IOException | IllegalStateException e) {
+            throw new AutoCompleteException("Unable to retrieve results", e);
         }
+
+        List<String> suggestedTerms = results.getSuggestedTerms().get(SUGGESTER_KEY);
+        for (String currentSuggestion : suggestedTerms) {
+
+            String term = removehighlighting(currentSuggestion);
+
+            AutocompleteSuggestion suggest = new AutocompleteSuggestion();
+            suggest.setSource("TITLE");
+            suggest.setName(term);
+
+            suggestions.add(suggest);
+        }
+
 
         return suggestions;
 
+    }
+
+    /**
+     * Removes term highlighting provided as part of the Solr suggester implementation. This should be addressed in solr config long term.
+     *
+     * @param currentSuggestion
+     * @return
+     */
+    private String removehighlighting(String currentSuggestion) {
+        //stackoverflow sourced regex to remove html elements and avoid edge cases.
+        return currentSuggestion.replaceAll("<(?:[^>=]|='[^']*'|=\"[^\"]*\"|=[^'\"][^\\s>]*)*>", "");
     }
 
 

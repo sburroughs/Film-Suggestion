@@ -1,5 +1,6 @@
 package moviesuggestion.suggest.web;
 
+import moviesuggestion.suggest.exception.AutoCompleteException;
 import moviesuggestion.suggest.model.AutocompleteSuggestion;
 import moviesuggestion.suggest.service.AutocompleteService;
 import org.slf4j.Logger;
@@ -26,11 +27,13 @@ public class AutocompleteController {
 
     @RequestMapping(value = "/autocomplete/{keyword}", method = RequestMethod.GET)
     @ResponseBody
-    public List<AutocompleteSuggestion> suggest(@PathVariable("keyword") String keyword) {
+    public List<AutocompleteSuggestion> suggest(@PathVariable("keyword") String keyword) throws AutoCompleteException {
 
         LOGGER.info("New autocomplete request received: {}", keyword);
 
+
         List<AutocompleteSuggestion> results = autocompleteService.suggest(keyword);
+
         return results;
 
     }
