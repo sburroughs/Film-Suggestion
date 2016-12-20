@@ -8,14 +8,8 @@ export class FilmsDisplayComponent implements OnInit {
 
     @Input() films;
 
-    @Output() tagSelected = new EventEmitter();
-
     ngOnInit() {
 
-    }
-
-    addTag($event){
-        this.tagSelected.emit($event);
     }
 
 }

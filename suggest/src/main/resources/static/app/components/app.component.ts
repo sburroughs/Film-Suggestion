@@ -18,16 +18,14 @@ export class AppComponent implements OnInit {
 
     films: Film[];
 
-    constructor(private searchService: SearchService) {
+    constructor(private tagManagerService: TagManagerService, private searchService: SearchService) {
+        this.tagManagerService.tagUpdates.subscribe((tags) => {
+            this.searchService.search(tags).subscribe(films => this.setFilms(films));
+        });
     }
 
-    setFilms($event) {
-        this.films = $event;
-    }
-
-    tagSelected($event) {
-        this.searchService.search($event)
-            .subscribe((films) => this.setFilms(films));
+    setFilms(films) {
+        this.films = films;
     }
 
     ngOnInit() {

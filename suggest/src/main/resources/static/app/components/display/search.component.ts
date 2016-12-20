@@ -20,7 +20,7 @@ export class SearchComponent {
     private query: string;
     private dataService: CompleterData;
 
-    constructor(private service: SearchService, private tagManager: TagManagerService, private completerService: CompleterService, location: Location) {
+    constructor(private tagManager: TagManagerService, private completerService: CompleterService, location: Location) {
         this.dataService = completerService.remote(location.prepareExternalUrl(AUTOCOMPLETE_ENDPOINT), 'name', 'name').descriptionField("source");
     }
 
@@ -30,11 +30,6 @@ export class SearchComponent {
         let tag: Tag = new Tag(display);
 
         this.tagManager.addLike(tag);
-
-        let searchTags: Tag[] = this.tagManager.like;
-        this.service.search(searchTags).subscribe((films) => {
-            this.filmUpdates.emit(films);
-        });
 
         this.query = "";
 

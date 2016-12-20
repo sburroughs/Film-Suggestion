@@ -1,20 +1,21 @@
 <div *ngIf="film" class="row">
     <div class="card">
         <div class="card-header">
-            <span>
+            <span class="col-xs-9">
                 <h3>
-                    <a (click)="addTag()" href="javascript:void(0)">{{film.title}} - {{film.releaseDate | date:"yyyy"}}</a>
+                    <a (click)="addTag()"
+                       href="javascript:void(0)">{{film.title}} - {{film.releaseDate | date:"yyyy"}}</a>
                 </h3>
             </span>
-            <span class="text-xs-right">
+            <span class="col-xs-3 text-xs-right">
                 <p class="card-subtitle text-muted"><strong>Rated:</strong> {{film.rated}}</p>
                 <p class="card-subtitle text-muted"><strong>Runtime:</strong> {{film.runtime}}</p>
             </span>
         </div>
         <div class="card-block">
-            <img src="http://placehold.it/128x128" class="col-sm-2" width="128" height="128">
+            <span class="col-sm-2"><img src="http://placehold.it/128x128" width="128" height="128"></span>
             <p class="col-sm-6">{{film.plot}}</p>
-            <tag-view class="col-sm-6" [tags]="film.tags"></tag-view>
+            <tag-view class="col-sm-4" [tags]="film.tags"></tag-view>
         </div>
     </div>
 </div>

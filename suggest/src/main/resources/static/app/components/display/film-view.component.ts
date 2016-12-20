@@ -10,18 +10,13 @@ import {TagManagerService} from "./tags/tag-manager.service";
 })
 export class FilmViewComponent implements OnInit {
 
-
     @Input() film: Film;
-
-    year:any;
 
     constructor(private tagManager: TagManagerService) {
 
     }
 
     ngOnInit(): void {
-
-        console.log(this.film);
 
     }
 
